@@ -1,6 +1,6 @@
 import { ChangeEventHandler, KeyboardEventHandler }  from 'react';
-import { selectPS1 } from './promptfolioSlice';
-import styles from './Promptfolio.module.css';
+import { selectPS1 } from '../promptfolioSlice';
+import styles from '../Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 
 interface inputProps {

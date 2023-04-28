@@ -6,13 +6,19 @@ export interface PromptfolioState {
   outputHistory: string[],
   commandCount: number,
   PS1: string,
+  PS1User: string,
+  PS1Host: string,
+  PS1Directory: string,
 }
 
 const initialState: PromptfolioState = {
   commandHistory: [],
   outputHistory: [],
   commandCount: 0,
-  PS1: 'lucca@~ > ',
+  PS1User: 'lucca',
+  PS1Host: 'portfolio',
+  PS1Directory: '~',
+  PS1: 'lucca@portfolio ~ > ',
 };
 
 export const promptfolioSlice = createSlice({

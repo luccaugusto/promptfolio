@@ -10,8 +10,8 @@ import {
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
-import { Input } from './Input';
-import { Output } from './Output';
+import { Input } from './components/Input';
+import { Output } from './components/Output';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -22,10 +22,22 @@ export function Promptfolio() {
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(0);
 
+	const programList = new Map();
+
+	programList.set('ls', function Enter() {
+		dispatch(pushOutput('projects\t'));
+	});
+
+	const parseCommand = (command: string) => {
+		const program = programList.get(commandLine);
+		if (program) program();
+		else dispatch(pushOutput(`shell: ${commandLine}: command not found`));
+	}
+
 	const fireCommand = () => {
 		dispatch(pushCommand(commandLine));
-		dispatch(pushOutput(commandLine));
 		setCurrentCommandCount(currentCommandCount+1);
+		parseCommand(commandLine);
 	}
 
 	const keyPressMap = new Map();
@@ -59,7 +71,10 @@ export function Promptfolio() {
 
 	return (
 		<div className={`${styles.terminalColors} ${styles.terminal}`}>
-			<Output outputHistory={outputHistory} />
+			<Output
+				outputHistory={outputHistory}
+				commandHistory={commandHistory}
+			/>
 			<Input
 				className={`${styles.terminalColors} ${styles.commandLine}`}
 				value={commandLine}
