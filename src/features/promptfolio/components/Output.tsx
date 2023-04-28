@@ -10,14 +10,15 @@ interface OutputProps {
 export function Output(props: OutputProps) {
 	const PS1 = useSelector(selectPS1);
 	const lineToKey = (line: string, index: number) => {
-		return `${line.substring(0,5).replaceAll(' ','-')}-${index}`;
+		const prefix = line ? line.substring(0,5).replaceAll(' ','-') : '';
+		return `${prefix}-${index}`;
 	}
 
 	const generateFullOutput = () => {
 		const fullOutput = [];
 		for (let i=0; i < props.commandHistory.length; i++) {
-			fullOutput.push(props.commandHistory[i]);
-			fullOutput.push(props.outputHistory[i]);
+			fullOutput.push({type: 'command', value: props.commandHistory[i]});
+			fullOutput.push({type: 'output', value: props.outputHistory[i]});
 		}
 		return fullOutput.slice(0).reverse();
 	}
@@ -26,12 +27,15 @@ export function Output(props: OutputProps) {
 		<ul className={styles.commandHistory}>
 		{
 			generateFullOutput().map((line, index) => (
-				<li key={lineToKey(line, index)}>
+				<li
+					key={lineToKey(line.value, index)}
+					className={line.type === 'output' && !line.value ? styles.hidden : ''}
+				>
 				{
-					index % 2 !== 0 ?
-					(<span><span className={styles.PS1}>{PS1}</span><span>{line}</span></span>)
+					line.type === 'command' ?
+					(<span><span className={styles.PS1}>{PS1}</span><span>{line.value}</span></span>)
 					:
-					(<span>{line}</span>)
+					(<span>{line.value}</span>)
 				}
 				</li>
 			))

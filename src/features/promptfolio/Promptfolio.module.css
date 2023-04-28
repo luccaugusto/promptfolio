@@ -55,3 +55,6 @@ input, input:focus-visible {
 	color: #f0ead2;
 	background-color: #2b2d42;
 }
+.hidden {
+	display: none;
+}
