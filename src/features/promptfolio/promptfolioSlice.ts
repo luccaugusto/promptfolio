@@ -35,7 +35,7 @@ export const promptfolioSlice = createSlice({
 
 export const { pushCommand, pushOutput, clearOutput } = promptfolioSlice.actions;
 export const selectCommandCount = (state: RootState) => state.promptfolio.commandCount;
-export const selectCommand = (state: RootState, action: PayloadAction<number>) => state.promptfolio.commandHistory[action.payload];
+export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
 export const selectOutput = (state: RootState) => state.promptfolio.outputHistory;
 
 export default promptfolioSlice.reducer;
