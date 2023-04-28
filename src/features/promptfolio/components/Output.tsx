@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
-import { selectPS1 } from '../promptfolioSlice';
 
 interface OutputProps {
 	outputHistory: string[],
@@ -8,7 +6,6 @@ interface OutputProps {
 }
 
 export function Output(props: OutputProps) {
-	const PS1 = useSelector(selectPS1);
 	const lineToKey = (line: string, index: number) => {
 		const prefix = line ? line.substring(0,5).replaceAll(' ','-') : '';
 		return `${prefix}-${index}`;
@@ -31,12 +28,7 @@ export function Output(props: OutputProps) {
 					key={lineToKey(line.value, index)}
 					className={line.type === 'output' && !line.value ? styles.hidden : ''}
 				>
-				{
-					line.type === 'command' ?
-					(<span><span className={styles.PS1}>{PS1}</span><span>{line.value}</span></span>)
-					:
-					(<span>{line.value}</span>)
-				}
+					<span>{line.value}</span>
 				</li>
 			))
 		}

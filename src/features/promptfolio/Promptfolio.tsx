@@ -7,26 +7,40 @@ import {
 	selectCommandCount,
 	selectCommandHistory,
 	selectOutput,
+    updatePS1Directory,
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
 import { Output } from './components/Output';
 import { parseCommand } from './components/Parser';
+import { selectPS1 } from './promptfolioSlice';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
 	const totalCommandCount = useSelector(selectCommandCount);
 	const outputHistory = useSelector(selectOutput);
 	const commandHistory = useSelector(selectCommandHistory);
+	const PS1 = useSelector(selectPS1);
 
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(0);
 
 	const fireCommand = () => {
-		dispatch(pushCommand(commandLine));
+		dispatch(pushCommand(`${PS1}${commandLine}`));
 		setCurrentCommandCount(currentCommandCount+1);
-		dispatch(pushOutput(parseCommand(commandLine)));
+
+		const commandResult = parseCommand(commandLine);
+		dispatch(pushOutput(commandResult.output));
+		Object.entries(commandResult.updated).forEach(([key, value]) => {
+			switch(key) {
+				case 'directory':
+					dispatch(updatePS1Directory(value));
+					break;
+				default:
+					break;
+			}
+		});
 	}
 
 	const keyPressMap = new Map();
