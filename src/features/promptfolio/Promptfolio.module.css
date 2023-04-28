@@ -1,9 +1,18 @@
 .commandHistory {
 	overflow-y: scroll;
-	max-height: 90%;
+	max-height: 95%;
+	margin: 0;
+	padding: 0;
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+	display: flex;
+	flex-direction: column-reverse;
+}
+.commandHistory::-webkit-scrollbar {
+	display: none;
 }
 .commandHistory li {
-	list-style-type: '> ';
+	list-style-type: '';
 }
 input, input:focus-visible {
 	outline: none;
@@ -33,6 +42,7 @@ input, input:focus-visible {
 	bottom: 0;
 	right: 0;
 	overflow: hidden;
+	padding: 0.2rem;
 }
 .terminalColors {
 	color: #f0ead2;

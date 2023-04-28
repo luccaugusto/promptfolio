@@ -1,5 +1,4 @@
-//@ts-ignore
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
@@ -12,6 +11,7 @@ import {
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './Input';
+import { Output } from './Output';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -57,21 +57,9 @@ export function Promptfolio() {
 		if (keyFunction) keyFunction();
 	}
 
-	const lineToKey = (line: string, index: number) => {
-		return `${line.substring(0,5).replaceAll(' ','-')}-${index}`;
-	}
-
 	return (
 		<div className={`${styles.terminalColors} ${styles.terminal}`}>
-			<ul className={styles.commandHistory}>
-			{
-				outputHistory.map((line, index) => (
-					<li key={lineToKey(line, index)}>
-						{line}
-					</li>
-				))
-			}
-			</ul>
+			<Output outputHistory={outputHistory} />
 			<Input
 				className={`${styles.terminalColors} ${styles.commandLine}`}
 				value={commandLine}
