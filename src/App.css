@@ -2,3 +2,7 @@ body {
 	/*TODO: Cooler background, maybe something moving in a pattern and terminal is transparent */
 	background-color: black;
 }
+
+.App {
+	font-size: 20pt;
+}
