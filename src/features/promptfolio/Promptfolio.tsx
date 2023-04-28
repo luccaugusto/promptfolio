@@ -12,6 +12,7 @@ import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
 import { Output } from './components/Output';
+import { parseCommand } from './components/Parser';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -22,29 +23,14 @@ export function Promptfolio() {
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(0);
 
-	const programList = new Map();
-
-	programList.set('ls', function Enter() {
-		dispatch(pushOutput('projects\t'));
-	});
-
-	const parseCommand = (command: string) => {
-		const program = programList.get(commandLine);
-		if (program) program();
-		else dispatch(pushOutput(`shell: ${commandLine}: command not found`));
-	}
-
 	const fireCommand = () => {
 		dispatch(pushCommand(commandLine));
 		setCurrentCommandCount(currentCommandCount+1);
-		parseCommand(commandLine);
+		dispatch(pushOutput(parseCommand(commandLine)));
 	}
 
 	const keyPressMap = new Map();
 	keyPressMap.set('Enter', function Enter() {
-		if (commandLine === "") {
-			return;
-		}
 		fireCommand();
 		setCommandLine("");
 		setCurrentCommandCount(totalCommandCount);
