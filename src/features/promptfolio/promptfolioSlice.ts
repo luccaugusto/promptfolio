@@ -4,13 +4,15 @@ import {RootState} from '../../app/store';
 export interface PromptfolioState {
   commandHistory: string[],
   outputHistory: string[],
-  commandCount: number
+  commandCount: number,
+  PS1: string,
 }
 
 const initialState: PromptfolioState = {
   commandHistory: [],
   outputHistory: [],
-  commandCount: 0
+  commandCount: 0,
+  PS1: 'lucca@~ >',
 };
 
 export const promptfolioSlice = createSlice({
@@ -37,5 +39,6 @@ export const { pushCommand, pushOutput, clearOutput } = promptfolioSlice.actions
 export const selectCommandCount = (state: RootState) => state.promptfolio.commandCount;
 export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
 export const selectOutput = (state: RootState) => state.promptfolio.outputHistory;
+export const selectPS1 = (state: RootState) => state.promptfolio.PS1;
 
 export default promptfolioSlice.reducer;

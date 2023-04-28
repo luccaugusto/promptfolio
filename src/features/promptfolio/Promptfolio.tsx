@@ -1,5 +1,5 @@
 //@ts-ignore
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
@@ -11,6 +11,7 @@ import {
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
+import { Input } from './Input';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -29,6 +30,9 @@ export function Promptfolio() {
 
 	const keyPressMap = new Map();
 	keyPressMap.set('Enter', function Enter() {
+		if (commandLine === "") {
+			return;
+		}
 		fireCommand();
 		setCommandLine("");
 		setCurrentCommandCount(totalCommandCount);
@@ -48,8 +52,8 @@ export function Promptfolio() {
 		}
 	});
 
-	const handleKeyPress = (key: string) => {
-		const keyFunction = keyPressMap.get(key);
+	const handleKeyPress = (e: React.KeyboardEvent) => {
+		const keyFunction = keyPressMap.get(e.key);
 		if (keyFunction) keyFunction();
 	}
 
@@ -68,11 +72,11 @@ export function Promptfolio() {
 				))
 			}
 			</ul>
-			<input
+			<Input
 				className={`${styles.terminalColors} ${styles.commandLine}`}
 				value={commandLine}
-				onChange={e => setCommandLine(e.target.value)}
-				onKeyDown={e => handleKeyPress(e.key)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCommandLine(e.target.value)}
+				onKeyDown={handleKeyPress}
 			/>
 		</div>
 	);
