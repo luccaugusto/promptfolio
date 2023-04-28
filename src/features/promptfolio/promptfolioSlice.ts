@@ -12,7 +12,7 @@ const initialState: PromptfolioState = {
   commandHistory: [],
   outputHistory: [],
   commandCount: 0,
-  PS1: 'lucca@~ >',
+  PS1: 'lucca@~ > ',
 };
 
 export const promptfolioSlice = createSlice({

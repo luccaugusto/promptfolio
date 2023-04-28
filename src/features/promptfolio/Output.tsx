@@ -17,7 +17,7 @@ export function Output(props: OutputProps) {
 		{
 			props.outputHistory.slice(0).reverse().map((line, index) => (
 				<li key={lineToKey(line, index)}>
-					{`${PS1} ${line}`}
+					<span className={styles.PS1}>{PS1}</span>{line}
 				</li>
 			))
 		}

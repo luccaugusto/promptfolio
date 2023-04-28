@@ -23,6 +23,9 @@ input, input:focus-visible {
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
+.PS1 {
+	color: #ffb703;
+}
 .commandLine {
 	position: absolute;
 	left: 0.2rem;

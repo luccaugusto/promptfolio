@@ -1,6 +1,7 @@
 import { ChangeEventHandler, KeyboardEventHandler }  from 'react';
-import { useSelector } from 'react-redux';
 import { selectPS1 } from './promptfolioSlice';
+import styles from './Promptfolio.module.css';
+import { useSelector } from 'react-redux';
 
 interface inputProps {
 	className: string,
@@ -14,7 +15,7 @@ export function Input(props: inputProps) {
 
 	return (
 		<div className={props.className}>
-		<span>{PS1} </span>
+		<span className={styles.PS1}>{PS1}</span>
 			<input
 				value={props.value}
 				onChange={props.onChange}
