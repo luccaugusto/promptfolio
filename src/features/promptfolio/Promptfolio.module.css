@@ -33,6 +33,7 @@ input, input:focus-visible {
 }
 .commandLine input {
 	font-size: 20pt;
+	font-family: 'Monaco';
 	width: 80%
 }
 .terminal {
@@ -57,4 +58,7 @@ input, input:focus-visible {
 }
 .hidden {
 	display: none;
+}
+.indented {
+	margin-left: 30pt;
 }

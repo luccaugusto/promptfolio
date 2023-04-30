@@ -2,35 +2,43 @@ import React, { useState } from 'react';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
+	clearOutput,
+	clearCommand,
 	pushCommand,
 	pushOutput,
 	selectCommandCount,
 	selectCommandHistory,
 	selectOutput,
+    selectcommandOutput,
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
 import { Output } from './components/Output';
 import { parseCommand } from './components/Parser';
-import { selectPS1 } from './promptfolioSlice';
+import { ProgramActions } from './components/Parser';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
 	const totalCommandCount = useSelector(selectCommandCount);
 	const outputHistory = useSelector(selectOutput);
 	const commandHistory = useSelector(selectCommandHistory);
-	const PS1 = useSelector(selectPS1);
+	const commandOutput = useSelector(selectcommandOutput);
 
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(0);
 
 	const fireCommand = () => {
-		dispatch(pushCommand(`${PS1}${commandLine}`));
+		dispatch(pushCommand(commandLine));
 		setCurrentCommandCount(currentCommandCount+1);
 
 		const commandResult = parseCommand(commandLine);
-		dispatch(pushOutput(commandResult.output));
+		if (commandResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
+			dispatch(clearOutput());
+			dispatch(clearCommand());
+		} else {
+			dispatch(pushOutput(commandResult.output));
+		}
 	}
 
 	const keyPressMap = new Map();
@@ -63,7 +71,7 @@ export function Promptfolio() {
 		<div className={`${styles.terminalColors} ${styles.terminal}`}>
 			<Output
 				outputHistory={outputHistory}
-				commandHistory={commandHistory}
+				commandOutput={commandOutput}
 			/>
 			<Input
 				className={`${styles.terminalColors} ${styles.commandLine}`}

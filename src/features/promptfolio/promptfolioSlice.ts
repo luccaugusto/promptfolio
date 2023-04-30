@@ -3,7 +3,8 @@ import {RootState} from '../../app/store';
 
 export interface PromptfolioState {
   commandHistory: string[],
-  outputHistory: string[],
+  commandOutput: string[],
+  output: string[],
   commandCount: number,
   username: string,
   hostname: string,
@@ -13,7 +14,8 @@ export interface PromptfolioState {
 
 const initialState: PromptfolioState = {
   commandHistory: [],
-  outputHistory: [],
+  commandOutput: [],
+  output: [],
   commandCount: 0,
   username: 'lucca',
   hostname: 'portfolio',
@@ -34,13 +36,17 @@ export const promptfolioSlice = createSlice({
     },
     pushCommand: (state, action: PayloadAction<string>) => {
       state.commandHistory.push(action.payload);
+      state.commandOutput.push(action.payload);
       state.commandCount += 1;
     },
     pushOutput: (state, action: PayloadAction<string>) => {
-      state.outputHistory.push(action.payload);
+      state.output.push(action.payload);
     },
     clearOutput: (state) => {
-      state.outputHistory = [];
+      state.output = [];
+    },
+    clearCommand: (state) => {
+      state.commandOutput = [];
     },
     updatePS1User: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
@@ -57,10 +63,11 @@ export const promptfolioSlice = createSlice({
   },
 });
 
-export const { pushCommand, pushOutput, clearOutput, updatePS1Directory } = promptfolioSlice.actions;
+export const { pushCommand, pushOutput, clearOutput, updatePS1Directory, clearCommand } = promptfolioSlice.actions;
 export const selectCommandCount = (state: RootState) => state.promptfolio.commandCount;
 export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
-export const selectOutput = (state: RootState) => state.promptfolio.outputHistory;
+export const selectcommandOutput = (state: RootState) => state.promptfolio.commandOutput;
+export const selectOutput = (state: RootState) => state.promptfolio.output;
 export const selectPS1 = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname} ${state.promptfolio.PWD} >`;
 export const selectFileSystem = (state: RootState) => state.promptfolio.filesystem;
 
