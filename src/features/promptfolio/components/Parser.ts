@@ -2,16 +2,6 @@ const programList = new Map();
 programList.set('ls', function Ls() {
 	return {output: 'projects\t', updated: {}};
 });
-programList.set('cd', function Cd(arg: string) {
-	//ignore other arguments
-	if (Array.isArray(arg)) {
-		arg = arg[0];
-	}
-	if (!arg) {
-		arg = '~';
-	}
-	return {output: '', updated: {directory: arg}};
-});
 
 export function parseCommand (command: string) {
 	const programName = command.split(' ')[0];

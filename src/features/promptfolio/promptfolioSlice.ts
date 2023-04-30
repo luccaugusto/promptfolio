@@ -5,18 +5,24 @@ export interface PromptfolioState {
   commandHistory: string[],
   outputHistory: string[],
   commandCount: number,
-  PS1User: string,
-  PS1Host: string,
-  PS1Directory: string,
+  username: string,
+  hostname: string,
+  PWD: string,
+  filesystem: {},
 }
 
 const initialState: PromptfolioState = {
   commandHistory: [],
   outputHistory: [],
   commandCount: 0,
-  PS1User: 'lucca',
-  PS1Host: 'portfolio',
-  PS1Directory: '~',
+  username: 'lucca',
+  hostname: 'portfolio',
+  PWD: '~',
+  filesystem: {
+    "~": {
+      "projects": {},
+    }
+  }
 };
 
 export const promptfolioSlice = createSlice({
@@ -37,14 +43,17 @@ export const promptfolioSlice = createSlice({
       state.outputHistory = [];
     },
     updatePS1User: (state, action: PayloadAction<string>) => {
-      state.PS1User = action.payload;
+      state.username = action.payload;
     },
     updatePS1Host: (state, action: PayloadAction<string>) => {
-      state.PS1Host = action.payload;
+      state.hostname = action.payload;
     },
     updatePS1Directory: (state, action: PayloadAction<string>) => {
-      state.PS1Directory = action.payload;
-    }
+      state.PWD = action.payload;
+    },
+    updateFileSystem: (state, action: PayloadAction<object>) => {
+      state.filesystem = action.payload;
+    },
   },
 });
 
@@ -52,6 +61,7 @@ export const { pushCommand, pushOutput, clearOutput, updatePS1Directory } = prom
 export const selectCommandCount = (state: RootState) => state.promptfolio.commandCount;
 export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
 export const selectOutput = (state: RootState) => state.promptfolio.outputHistory;
-export const selectPS1 = (state: RootState) => `${state.promptfolio.PS1User}@${state.promptfolio.PS1Host} ${state.promptfolio.PS1Directory} >`;
+export const selectPS1 = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname} ${state.promptfolio.PWD} >`;
+export const selectFileSystem = (state: RootState) => state.promptfolio.filesystem;
 
 export default promptfolioSlice.reducer;

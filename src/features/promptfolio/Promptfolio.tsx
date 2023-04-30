@@ -7,7 +7,6 @@ import {
 	selectCommandCount,
 	selectCommandHistory,
 	selectOutput,
-    updatePS1Directory,
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
@@ -32,15 +31,6 @@ export function Promptfolio() {
 
 		const commandResult = parseCommand(commandLine);
 		dispatch(pushOutput(commandResult.output));
-		Object.entries(commandResult.updated).forEach(([key, value]) => {
-			switch(key) {
-				case 'directory':
-					dispatch(updatePS1Directory(value));
-					break;
-				default:
-					break;
-			}
-		});
 	}
 
 	const keyPressMap = new Map();
