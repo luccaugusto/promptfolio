@@ -17,7 +17,11 @@ export function Output(props: OutputProps) {
 	const generateFullOutput = () => {
 		const fullOutput = [];
 		for (let i=0; i < props.commandOutput.length; i++) {
-			fullOutput.push({type: 'command', value: `<span class="${styles.PS1}">${PS1}</span> ${props.commandOutput[i]}`});
+			let commandValue = `<span class="${styles.PS1}">${PS1}</span> ${props.commandOutput[i]}`;
+			if (props.commandOutput[i] === 'welcome') {
+				commandValue = '';
+			}
+			fullOutput.push({type: 'command', value: commandValue});
 			fullOutput.push({type: 'output', value: props.outputHistory[i]});
 		}
 		return fullOutput.slice(0).reverse();
@@ -29,7 +33,7 @@ export function Output(props: OutputProps) {
 			generateFullOutput().map((line, index) => (
 				<li
 					key={lineToKey(line.value, index)}
-					className={line.type === 'output' && !line.value ? styles.hidden : ''}
+					className={!line.value ? styles.hidden : ''}
 					dangerouslySetInnerHTML={{__html: line.value}}
 				>
 				</li>

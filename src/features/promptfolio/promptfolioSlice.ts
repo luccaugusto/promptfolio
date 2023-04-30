@@ -12,10 +12,12 @@ export interface PromptfolioState {
   filesystem: {},
 }
 
+const welcomeText = "Linux V4.7 Psychotic Stoned Sheep</br>Welcome to Lucca's Prompfolio</br>Type `help` for available commands.";
+
 const initialState: PromptfolioState = {
-  commandHistory: [],
-  commandOutput: [],
-  output: [],
+  commandHistory: ['welcome'],
+  commandOutput: ['welcome'],
+  output: [welcomeText],
   commandCount: 0,
   username: 'lucca',
   hostname: 'portfolio',
