@@ -2,6 +2,7 @@ import styles from '../Promptfolio.module.css';
 
 export const enum ProgramActions {
   OUTPUT_CLEAR = 'outputclear',
+  RENDER = 'render',
 }
 
 interface programResult {
@@ -30,12 +31,19 @@ programList.set('help', function Help(): programResult {
   });
   return { output, action: [] };
 });
-programList.set( 'clear', function Clear(): programResult {
+programList.set('clear', function Clear(): programResult {
   return {
     output: '',
     action: [ProgramActions.OUTPUT_CLEAR,],
     description: 'Clear the terminal screen'
   };
+});
+programList.set('github-stats', function GithubStats(): programResult {
+  return {
+    output: "Github",
+    action: [ProgramActions.RENDER,],
+    description: 'Show github stats',
+  }
 });
 
 export function parseCommand (command: string): programResult {

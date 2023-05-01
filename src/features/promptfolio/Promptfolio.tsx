@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDomServer from 'react-dom/server';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
@@ -17,6 +18,7 @@ import { Input } from './components/Input';
 import { Output } from './components/Output';
 import { parseCommand } from './components/Parser';
 import { ProgramActions } from './components/Parser';
+import { Github } from './components/Github';
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ export function Promptfolio() {
 		if (commandResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
 			dispatch(clearOutput());
 			dispatch(clearCommand());
+		} else if (commandResult.action.indexOf(ProgramActions.RENDER) > -1) {
+			dispatch(pushOutput(ReactDomServer.renderToStaticMarkup(<Github/>)));
 		} else {
 			dispatch(pushOutput(commandResult.output));
 		}
