@@ -12,7 +12,7 @@ interface programResult {
 }
 
 //TODO: cd command opens a new tab in the website that is the directory: example cd github goes to https://github.com/luccaugusto
-const programList = new Map();
+export const programList = new Map();
 programList.set('ls', function Ls(): programResult {
   return {
     output: `resume.pdf<span class=${styles.indented}>github</span>`,

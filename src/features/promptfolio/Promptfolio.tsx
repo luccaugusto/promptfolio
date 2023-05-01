@@ -16,7 +16,7 @@ import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
 import { Output } from './components/Output';
-import { parseCommand } from './components/Parser';
+import { parseCommand, programList } from './components/Parser';
 import { ProgramActions } from './components/Parser';
 import { Github } from './components/Github';
 
@@ -65,8 +65,31 @@ export function Promptfolio() {
 			setCommandLine("");
 		}
 	});
+	keyPressMap.set('Tab', function Tab() {
+		let possiblePrograms: string[] = [];
+		let possibleProgramsCount = 0;
+		const cmdLength = commandLine.length;
+		const programCount = programList.size;
+		const programIterator = programList.keys();
+		for (let i=0; i < programCount; i++) {
+			const programName = programIterator.next().value;
+			if (programName.substring(0, cmdLength) === commandLine) {
+				possiblePrograms.push(programName);
+				possibleProgramsCount+=1;
+			}
+		}
+		if (possibleProgramsCount === 1) {
+			setCommandLine(possiblePrograms[0]);
+		} else if (possibleProgramsCount > 1) {
+			dispatch(pushCommand(commandLine));
+			dispatch(pushOutput(possiblePrograms.reduce(
+				(suggestionString, pName) => suggestionString += `&nbsp;&nbsp;${pName}`
+			)));
+		}
+	});
 
 	const handleKeyPress = (e: React.KeyboardEvent) => {
+		if (e.key === "Tab") e.preventDefault();
 		const keyFunction = keyPressMap.get(e.key);
 		if (keyFunction) keyFunction();
 	}
