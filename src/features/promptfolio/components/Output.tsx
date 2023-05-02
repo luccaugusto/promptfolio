@@ -9,10 +9,6 @@ interface OutputProps {
 
 export function Output(props: OutputProps) {
 	const PS1 = useSelector(selectPS1);
-	const lineToKey = (line: string, index: number) => {
-		const prefix = line ? line.substring(0,5).replaceAll(' ','-') : '';
-		return `${prefix}-${index}`;
-	}
 
 	const generateFullOutput = () => {
 		const fullOutput = [];
@@ -32,7 +28,7 @@ export function Output(props: OutputProps) {
 		{
 			generateFullOutput().map((line, index) => (
 				<li
-					key={lineToKey(line.value, index)}
+					key={`line-${index}`}
 					className={!line.value ? styles.hidden : ''}
 					dangerouslySetInnerHTML={{__html: line.value}}
 				>

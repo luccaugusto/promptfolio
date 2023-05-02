@@ -65,3 +65,36 @@ input, input:focus-visible {
 .githubStats {
 	padding: 10pt;
 }
+.skillBubble {
+    font-size: 10pt;
+    padding: 3pt;
+    border: solid 2px #00b4d8;
+    border-radius: 15pt;
+    margin: 2pt;
+    background-color: #244968;
+	white-space: nowrap;
+	height: 12pt;
+}
+.skillName {
+	font-size: 18pt;
+}
+.skillSetWrapper {
+	margin: 5pt;
+}
+.skillWrapper {
+	padding: 2pt;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+	border-bottom: 1px dashed;
+}
+.skillBubbleWrapper {
+	display: flex;
+	align-content: space-around;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+.skillComment {
+	font-size: 14pt;
+}

@@ -19,6 +19,12 @@ import { Output } from './components/Output';
 import { parseCommand, programList } from './components/Parser';
 import { ProgramActions } from './components/Parser';
 import { Github } from './components/Github';
+import { Skillset } from './components/Skillset';
+
+const availableComponents: { [key: string]: any } = {
+	"Github": Github,
+	"Skillset": Skillset,
+}
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
@@ -39,7 +45,8 @@ export function Promptfolio() {
 			dispatch(clearOutput());
 			dispatch(clearCommand());
 		} else if (commandResult.action.indexOf(ProgramActions.RENDER) > -1) {
-			dispatch(pushOutput(ReactDomServer.renderToStaticMarkup(<Github/>)));
+			const Component = availableComponents[commandResult.output];
+			dispatch(pushOutput(ReactDomServer.renderToStaticMarkup(<Component/>)));
 		} else {
 			dispatch(pushOutput(commandResult.output));
 		}

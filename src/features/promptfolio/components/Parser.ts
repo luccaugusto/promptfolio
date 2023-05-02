@@ -45,6 +45,13 @@ programList.set('github-stats', function GithubStats(): programResult {
     description: 'Show github stats',
   }
 });
+programList.set('skillset', function Skillset(): programResult {
+  return {
+    output: "Skillset",
+    action: [ProgramActions.RENDER,],
+    description: 'Show my skill set',
+  }
+});
 
 export function parseCommand (command: string): programResult {
 	const programName = command.split(' ')[0];
