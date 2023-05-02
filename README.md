@@ -3,6 +3,6 @@ This project is my dev portfolio. It's a ReactJS app built to simulate a linux t
 
 ## GOALS
 - [ ] Accept command via get params
-- [ ] implement skillset command
+- [x] implement skillset command
 - [ ] implement status command (shows what i'm currently working on)
 - [ ] implement cat command to view my resume and other files
