@@ -20,10 +20,12 @@ import { parseCommand, programList } from './components/Parser';
 import { ProgramActions } from './components/Parser';
 import { Github } from './components/Github';
 import { Skillset } from './components/Skillset';
+import { Cat } from './components/Cat';
 
 const availableComponents: { [key: string]: any } = {
 	"Github": Github,
 	"Skillset": Skillset,
+	"Cat": Cat,
 }
 
 export function Promptfolio() {

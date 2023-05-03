@@ -3,6 +3,7 @@ import styles from '../Promptfolio.module.css';
 export const enum ProgramActions {
   OUTPUT_CLEAR = 'outputclear',
   RENDER = 'render',
+  OUTPUT = 'output',
 }
 
 interface programResult {
@@ -11,7 +12,6 @@ interface programResult {
   description?: string,
 }
 
-//TODO: cd command opens a new tab in the website that is the directory: example cd github goes to https://github.com/luccaugusto
 export const programList = new Map();
 programList.set('ls', function Ls(): programResult {
   return {
@@ -50,6 +50,20 @@ programList.set('skillset', function Skillset(): programResult {
     output: "Skillset",
     action: [ProgramActions.RENDER,],
     description: 'Show my skill set',
+  }
+});
+programList.set('cat', function Cat(): programResult {
+  return {
+    output: "Cat",
+    action: [ProgramActions.RENDER,],
+    description: 'view a file',
+  }
+});
+programList.set('about', function Cat(): programResult {
+  return {
+    output: 'Fun fact, <a href="https://en.wikipedia.org/wiki/Linux_kernel_version_history#Releases_4.x.y" target="_blank" rel="noreferrer">linux 4.7.10 was actually named Psychotic Stoned Sheep</a>',
+    action: [],
+    description: 'information about this project',
   }
 });
 
