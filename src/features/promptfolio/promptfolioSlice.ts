@@ -9,7 +9,6 @@ export interface PromptfolioState {
   username: string,
   hostname: string,
   PWD: string,
-  filesystem: {},
 }
 
 const welcomeText = "Linux V4.7.10 Psychotic Stoned Sheep</br>Welcome to Lucca's Prompfolio</br>Type `help` for available commands.";
@@ -22,11 +21,6 @@ const initialState: PromptfolioState = {
   username: 'lucca',
   hostname: 'portfolio',
   PWD: '~',
-  filesystem: {
-    "~": {
-      "projects": {},
-    }
-  }
 };
 
 export const promptfolioSlice = createSlice({
@@ -59,9 +53,6 @@ export const promptfolioSlice = createSlice({
     updatePS1Directory: (state, action: PayloadAction<string>) => {
       state.PWD = action.payload;
     },
-    updateFileSystem: (state, action: PayloadAction<object>) => {
-      state.filesystem = action.payload;
-    },
   },
 });
 
@@ -71,6 +62,5 @@ export const selectCommandHistory = (state: RootState) => state.promptfolio.comm
 export const selectcommandOutput = (state: RootState) => state.promptfolio.commandOutput;
 export const selectOutput = (state: RootState) => state.promptfolio.output;
 export const selectPS1 = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname} ${state.promptfolio.PWD} >`;
-export const selectFileSystem = (state: RootState) => state.promptfolio.filesystem;
 
 export default promptfolioSlice.reducer;

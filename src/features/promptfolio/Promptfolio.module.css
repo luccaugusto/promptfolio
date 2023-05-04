@@ -101,3 +101,6 @@ input, input:focus-visible {
 .skillComment {
 	font-size: 14pt;
 }
+.catOutput {
+	margin: 0 20%;
+}

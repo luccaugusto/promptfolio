@@ -48,7 +48,8 @@ export function Promptfolio() {
 			dispatch(clearCommand());
 		} else if (commandResult.action.indexOf(ProgramActions.RENDER) > -1) {
 			const Component = availableComponents[commandResult.output];
-			dispatch(pushOutput(ReactDomServer.renderToStaticMarkup(<Component/>)));
+			const args = commandResult.args;
+			dispatch(pushOutput(ReactDomServer.renderToStaticMarkup(<Component args={args}/>)));
 		} else {
 			dispatch(pushOutput(commandResult.output));
 		}
