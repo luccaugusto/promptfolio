@@ -26,8 +26,10 @@ export function Cat(props: CatProps) {
 			<div className={styles.catOutput}>
 				<embed
 					title={props.args}
+					itemType={'application/pdf'}
 					src={filePath}
 					width={'100%'}
+					height={'1200px'}
 				>
 				</embed>
 			</div>

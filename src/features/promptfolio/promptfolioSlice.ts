@@ -25,7 +25,7 @@ const initialState: PromptfolioState = {
   hostname: 'portfolio',
   PWD: '~',
   fileSystem: {
-		'resume.pdf': `${process.env.PUBLIC_URL}/resume.png`,
+		'resume.pdf': `${process.env.PUBLIC_URL}/resume.pdf`,
   },
 };
 
