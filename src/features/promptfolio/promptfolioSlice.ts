@@ -7,7 +7,6 @@ export interface PromptfolioState {
   commandHistory: string[],
   commandOutput: string[],
   output: programResult[],
-  commandCount: number,
   username: string,
   hostname: string,
   PWD: string,
@@ -20,7 +19,6 @@ const initialState: PromptfolioState = {
   commandHistory: ['welcome'],
   commandOutput: ['welcome'],
   output: [{component: componentNames.TEXT, args: welcomeText, action: ProgramActions.RENDER}],
-  commandCount: 0,
   username: 'lucca',
   hostname: 'portfolio',
   PWD: '~',
@@ -33,13 +31,9 @@ export const promptfolioSlice = createSlice({
   name: 'promptfolio',
   initialState,
   reducers: {
-    incrementCommandCount: (state) => {
-      state.commandCount += 1;
-    },
     pushCommand: (state, action: PayloadAction<string>) => {
       state.commandHistory.push(action.payload);
       state.commandOutput.push(action.payload);
-      state.commandCount += 1;
     },
     pushOutput: (state, action: PayloadAction<programResult>) => {
       state.output.push(action.payload);
@@ -63,7 +57,6 @@ export const promptfolioSlice = createSlice({
 });
 
 export const { pushCommand, pushOutput, clearOutput, updatePS1Directory, clearCommand } = promptfolioSlice.actions;
-export const selectCommandCount = (state: RootState) => state.promptfolio.commandCount;
 export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
 export const selectcommandOutput = (state: RootState) => state.promptfolio.commandOutput;
 export const selectOutput = (state: RootState) => state.promptfolio.output;

@@ -6,7 +6,6 @@ import {
 	clearCommand,
 	pushCommand,
 	pushOutput,
-	selectCommandCount,
 	selectCommandHistory,
 	selectOutput,
     selectcommandOutput,
@@ -38,14 +37,13 @@ export const componentNames = {
 
 export function Promptfolio() {
 	const dispatch = useAppDispatch();
-	const totalCommandCount = useSelector(selectCommandCount);
 	const outputHistory = useSelector(selectOutput);
 	const commandHistory = useSelector(selectCommandHistory);
 	const commandOutput = useSelector(selectcommandOutput);
 	const fileSystem = useSelector(selectFileSystem);
 
 	const [commandLine, setCommandLine] = useState('');
-	const [currentCommandCount, setCurrentCommandCount] = useState(0);
+	const [currentCommandCount, setCurrentCommandCount] = useState(commandHistory.length);
 
 	const fireCommand = () => {
 		dispatch(pushCommand(commandLine));
@@ -64,19 +62,22 @@ export function Promptfolio() {
 	keyPressMap.set('Enter', function Enter() {
 		fireCommand();
 		setCommandLine("");
-		setCurrentCommandCount(totalCommandCount);
+		setCurrentCommandCount(commandHistory.length+1);
 	});
 	keyPressMap.set('ArrowUp', function ArrowUp() {
+		let lastCommandIndex = currentCommandCount;
 		if (currentCommandCount > 1) {
-			setCurrentCommandCount(currentCommandCount-1);
+			lastCommandIndex-=1;
+			setCurrentCommandCount(lastCommandIndex);
+			setCommandLine(commandHistory[lastCommandIndex]);
 		}
-		setCommandLine(commandHistory[currentCommandCount]);
 	});
 	keyPressMap.set('ArrowDown', function ArrowDown() {
-		if (currentCommandCount < totalCommandCount) {
-			setCurrentCommandCount(currentCommandCount+1);
-			setCommandLine(commandHistory[currentCommandCount]);
-		} else if (currentCommandCount === totalCommandCount) {
+		if (currentCommandCount < commandHistory.length) {
+			const nextCommandIndex = currentCommandCount+1;
+			setCurrentCommandCount(nextCommandIndex);
+			setCommandLine(commandHistory[nextCommandIndex]);
+		} else if (currentCommandCount === commandHistory.length) {
 			setCommandLine("");
 		}
 	});
