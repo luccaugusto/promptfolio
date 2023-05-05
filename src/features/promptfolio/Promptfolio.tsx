@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
@@ -45,11 +45,11 @@ export function Promptfolio() {
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(commandHistory.length);
 
-	const fireCommand = () => {
-		dispatch(pushCommand(commandLine));
+	const fireCommand = (command: string) => {
+		dispatch(pushCommand(command));
 		setCurrentCommandCount(currentCommandCount+1);
 
-		const programResult = parseCommand(commandLine, fileSystem);
+		const programResult = parseCommand(command, fileSystem);
 		if (programResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
 			dispatch(clearOutput());
 			dispatch(clearCommand());
@@ -59,11 +59,13 @@ export function Promptfolio() {
 	}
 
 	const keyPressMap = new Map();
-	keyPressMap.set('Enter', function Enter() {
-		fireCommand();
+	function Enter(command?: string) {
+		if (!command) command = commandLine;
+		fireCommand(command);
 		setCommandLine("");
 		setCurrentCommandCount(commandHistory.length+1);
-	});
+	}
+	keyPressMap.set('Enter', Enter);
 	keyPressMap.set('ArrowUp', function ArrowUp() {
 		let lastCommandIndex = currentCommandCount;
 		if (currentCommandCount > 1) {
@@ -85,12 +87,12 @@ export function Promptfolio() {
 		if (commandLine === '') {
 			return;
 		}
-		let possibleValues: string[] = [];
+		const possibleValues: string[] = [];
 		let possibleValuesCount = 0;
 		let cmdLength = commandLine.length;
 		//autocomplete files
 		if (commandLine.indexOf(' ') > -1) {
-			let file = commandLine.split(' ')[1]
+			const file = commandLine.split(' ')[1]
 			cmdLength = file.length
 			Object.keys(fileSystem).forEach(fileName => {
 				console.log(fileName.substring(0, cmdLength) === file);
@@ -106,6 +108,7 @@ export function Promptfolio() {
 
 		//autocomplete programs
 		else {
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			programList.forEach((program, programName) => {
 				if (programName.substring(0, cmdLength) === commandLine) {
 					possibleValues.push(programName);
@@ -146,6 +149,17 @@ export function Promptfolio() {
 		}
 		return fullOutput.slice(0).reverse();
 	}
+
+	useEffect(() => {
+		if (location.search) {
+			const queryParams = location.search.substring(1).split('&');
+			const parsedParams: {[index: string]: any} = {}
+			queryParams.forEach((p) => {const [key, value] = p.split('='); parsedParams[key] = value});
+			if (parsedParams.execute) {
+				Enter(parsedParams.execute);
+			}
+		}
+	}, []);
 
 	return (
 		<div className={`${styles.terminalColors} ${styles.terminal}`}>

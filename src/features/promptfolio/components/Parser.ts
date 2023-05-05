@@ -7,6 +7,9 @@ export const enum ProgramActions {
   OUTPUT = 'output',
 }
 
+//TODO: implement cd command that opens a new tab to wherever the user cd to
+  //cd goes to linkedin and github pages, github dir has my repos to cd into
+//TODO: implement write command to send me an email
 export interface programResult {
   component: string,
   action: ProgramActions,
@@ -15,7 +18,8 @@ export interface programResult {
 }
 
 export const programList = new Map();
-programList.set('ls', function Ls(fileSystem: {[index: string]: any}): programResult {
+programList.set('ls', function Ls(fileSystem?: {[index: string]: any}): programResult {
+  if (!fileSystem) fileSystem = {};
   return {
     args: Object.keys(fileSystem).map((k) => `<span class=${styles.indented}>${k}</span>`).join(' '),
     action: ProgramActions.RENDER,
@@ -68,7 +72,14 @@ programList.set('cat', function Cat(args: string): programResult {
 });
 programList.set('about', function Cat(): programResult {
   return {
-    args: 'Fun fact, <a href="https://en.wikipedia.org/wiki/Linux_kernel_version_history#Releases_4.x.y" target="_blank" rel="noreferrer">linux 4.7.10 was actually named Psychotic Stoned Sheep</a>',
+    args: `
+    This is my Promptfolio, a ReactJS application made to simulate linux terminal.<br/>
+    I do love terminal applications and i try to do most of my work without GUI applications.<br/>
+    I feel a lot more confortable not having to use the mouse. This project reflects this directly.<br/>
+    As i mentioned before, Promptfolio is developed in ReactJS, using Redux<br/>
+    (i didn't really need to use it, but i really wanted to just to practice).<br/>
+    You can find the source code in my github page (just type cd github/promptfolio to get there)<br/>
+    Fun fact, <a href="https://en.wikipedia.org/wiki/Linux_kernel_version_history#Releases_4.x.y" target="_blank" rel="noreferrer">linux 4.7.10 was actually named Psychotic Stoned Sheep</a>`,
     action: ProgramActions.RENDER,
     component: componentNames.TEXT,
     description: 'information about this project',

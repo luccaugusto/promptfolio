@@ -24,6 +24,7 @@ const initialState: PromptfolioState = {
   PWD: '~',
   fileSystem: {
 		'resume.pdf': `${process.env.PUBLIC_URL}/resume.pdf`,
+    'linkedin.pdf': `${process.env.PUBLIC_URL}/linkedin.pdf`,
   },
 };
 
