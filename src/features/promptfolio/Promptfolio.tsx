@@ -82,25 +82,44 @@ export function Promptfolio() {
 		}
 	});
 	keyPressMap.set('Tab', function Tab() {
-		//TODO: implement file autocomplete (autocompletes with file names after a command is in the commandLine)
-		let possiblePrograms: string[] = [];
-		let possibleProgramsCount = 0;
-		const cmdLength = commandLine.length;
-		const programCount = programList.size;
-		const programIterator = programList.keys();
-		for (let i=0; i < programCount; i++) {
-			const programName = programIterator.next().value;
-			if (programName.substring(0, cmdLength) === commandLine) {
-				possiblePrograms.push(programName);
-				possibleProgramsCount+=1;
+		if (commandLine === '') {
+			return;
+		}
+		let possibleValues: string[] = [];
+		let possibleValuesCount = 0;
+		let cmdLength = commandLine.length;
+		//autocomplete files
+		if (commandLine.indexOf(' ') > -1) {
+			let file = commandLine.split(' ')[1]
+			cmdLength = file.length
+			Object.keys(fileSystem).forEach(fileName => {
+				console.log(fileName.substring(0, cmdLength) === file);
+				if (fileName.substring(0, cmdLength) === file) {
+					possibleValues.push(fileName);
+					possibleValuesCount+=1;
+				}
+			});
+			if (possibleValuesCount === 1) {
+				setCommandLine(`${commandLine.split(' ')[0]} ${possibleValues[0]}`);
 			}
 		}
-		if (possibleProgramsCount === 1) {
-			setCommandLine(possiblePrograms[0]);
-		} else if (possibleProgramsCount > 1) {
+
+		//autocomplete programs
+		else {
+			programList.forEach((program, programName) => {
+				if (programName.substring(0, cmdLength) === commandLine) {
+					possibleValues.push(programName);
+					possibleValuesCount+=1;
+				}
+			})
+			if (possibleValuesCount === 1) {
+				setCommandLine(possibleValues[0]);
+			}
+		}
+		if (possibleValuesCount > 1) {
 			dispatch(pushCommand(commandLine));
 			dispatch(pushOutput({
-				args: possiblePrograms.reduce(
+				args: possibleValues.reduce(
 					(suggestionString, pName) => suggestionString += `&nbsp;&nbsp;${pName}`
 				),
 				action: ProgramActions.RENDER,
