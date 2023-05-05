@@ -1,16 +1,16 @@
+import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
+import { selectFileSystem } from '../promptfolioSlice';
 
 interface CatProps {
 	args: string,
 }
 
 export function Cat(props: CatProps) {
-	const filesystem: {[index: string]:any} = {
-		'resume.pdf': `${process.env.PUBLIC_URL}/resume.png`,
-	}
+	const fileSystem = useSelector(selectFileSystem);
 
 	const getFileFullPath = (file: string) => {
-		let path = filesystem[file];
+		let path = fileSystem[file];
 		if (!path) {
 			path = '';
 		}
