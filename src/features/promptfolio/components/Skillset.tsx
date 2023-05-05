@@ -1,6 +1,6 @@
 import styles from '../Promptfolio.module.css';
 
-const skillTable: { [key: string]: any } = {
+const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 	javascript: {
 		experience: "Work Experience",
 		level: "Advanced",
@@ -36,37 +36,37 @@ const skillTable: { [key: string]: any } = {
 		level: "Begginer",
 		comment: "I would love to dive deep in Rust but i've only had the time to use it briefly on a small personal project. I do plan on working more with Rust",
 		interested: true,
-   	},
-   	java: {
+	},
+	java: {
 		experience: "College tasks experience",
 		level: "Intermediate",
 		comment: "Most tasks in College had to be done in Java",
 		interested: false,
-   	},
-   	"Node.js": {
+	},
+	"Node.js": {
 		experience: "Work Experience",
 		level: "Advanced",
 		comment: "",
 		interested: true,
-   	},
-   	"Rest API": {
+	},
+	"Rest API": {
 		experience: "Work Experience",
 		level: "Advanced",
 		comment: "",
 		interested: true,
-   	},
-   	"Relational DB": {
+	},
+	"Relational DB": {
 		experience: "Work Experience",
 		level: "Advanced",
 		comment: "Mostly worked with MySQL and PostgreSQL",
 		interested: true,
-   	},
-   	"ReactJS": {
+	},
+	"ReactJS": {
 		experience: "Work Experience",
 		level: "Advanced",
 		comment: "Although i have 1.5 years of experience with React, and 4 years of frontend development overall, it is not really my thing. I can do it, but i take a little bit more time and i would rather work on the backend",
 		interested: false,
-   	},
+	},
 	"AWS (EC2, Lambda, S3, ECS)": {
 		experience: "Work Experience",
 		level: "Begginer",
@@ -96,7 +96,7 @@ export function Skillset() {
 		<div className={styles.skillSetWrapper}>
 			{
 				Object.keys(skillTable).map((skillName) => (
-					<div className={styles.skillWrapper}>
+					<div className={styles.skillWrapper} key={skillName}>
 						<div style={{width: '70%'}}>
 							<span className={styles.skillName}>{skillName}</span>
 							<br/>
