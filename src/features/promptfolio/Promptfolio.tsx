@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useAppDispatch } from '../../app/hooks';
 import {
@@ -47,7 +47,6 @@ export function Promptfolio() {
 
 	const fireCommand = (command: string) => {
 		dispatch(pushCommand(command));
-		setCurrentCommandCount(currentCommandCount+1);
 
 		const programResult = parseCommand(command, fileSystem);
 		if (programResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
@@ -108,8 +107,7 @@ export function Promptfolio() {
 
 		//autocomplete programs
 		else {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			programList.forEach((program, programName) => {
+			programList.forEach((_program, programName) => {
 				if (programName.substring(0, cmdLength) === commandLine) {
 					possibleValues.push(programName);
 					possibleValuesCount+=1;
@@ -149,17 +147,6 @@ export function Promptfolio() {
 		}
 		return fullOutput.slice(0).reverse();
 	}
-
-	useEffect(() => {
-		if (location.search) {
-			const queryParams = location.search.substring(1).split('&');
-			const parsedParams: {[index: string]: any} = {}
-			queryParams.forEach((p) => {const [key, value] = p.split('='); parsedParams[key] = value});
-			if (parsedParams.execute) {
-				Enter(parsedParams.execute);
-			}
-		}
-	}, []);
 
 	return (
 		<div className={`${styles.terminalColors} ${styles.terminal}`}>

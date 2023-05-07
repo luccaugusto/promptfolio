@@ -85,6 +85,13 @@ programList.set('about', function Cat(): programResult {
     description: 'information about this project',
   }
 });
+programList.set('welcome', function Welcome(): programResult {
+  const welcomeText = `
+  Linux V4.7.10 Psychotic Stoned Sheep</br>
+  Welcome to Lucca's Prompfolio</br>
+  Type \`help\` for available commands.`;
+  return {component: componentNames.TEXT, args: welcomeText, action: ProgramActions.RENDER}
+});
 
 export function parseCommand (command: string, fileSystem: {[index: string]: any}): programResult {
 	const programName = command.split(' ')[0];
