@@ -33,12 +33,21 @@ export function Parser() {
   }
 
   const programList = new Map();
+  programList.set('status', function Status(): programResult {
+    return {
+      args: "improving my promptfolio project",
+      action: ProgramActions.RENDER,
+      component: componentNames.TEXT,
+      description: "What i'm currently working on",
+    };
+  });
   programList.set('ls', function Ls(): programResult {
     const currentDir = getCurrentDir();
     return {
       args: Object.keys(currentDir).map((k) =>{
-        const classes = typeof(currentDir[k]) === 'object' ? `${styles.directory} ${styles.indented}` : styles.indented;
-        return `<span class=${classes}>${k}</span>`
+        const classes = typeof(currentDir[k]) === 'object' ?
+          `${styles.directory} ${styles.indented}` : styles.indented;
+        return `<span class="${classes}">${k}</span>`
       }).join(' '),
       action: ProgramActions.RENDER,
       component: componentNames.TEXT,
@@ -54,7 +63,12 @@ export function Parser() {
       }
       args = `${args}</br><span class="${styles.indented}">${programName}: ${description}</span>`
     });
-    return { component: componentNames.TEXT, action: ProgramActions.RENDER, args };
+    return {
+      component: componentNames.TEXT,
+      action: ProgramActions.RENDER,
+      args,
+      description: 'Shows this help text',
+    };
   });
   programList.set('clear', function Clear(): programResult {
     return {
@@ -135,7 +149,7 @@ export function Parser() {
         component,
         args: `cd: ${args}: No such file or directory`,
         action,
-        description
+        description,
       }
     }
 
@@ -167,7 +181,11 @@ export function Parser() {
     } else if(command !== "") {
       args = `shell: ${command}: command not found`;
     }
-    return {component, action, args};
+    return {
+      component,
+      action,
+      args,
+    };
   }
 
   return {programList, parseCommand};
