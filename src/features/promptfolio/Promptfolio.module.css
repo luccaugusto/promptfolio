@@ -104,3 +104,6 @@ input, input:focus-visible {
 .catOutput {
 	margin: 0 20%;
 }
+.directory {
+	color: #24fab2;
+}

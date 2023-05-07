@@ -14,7 +14,7 @@ import {
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
-import { parseCommand, programList } from './components/Parser';
+import { Parser } from './components/Parser';
 import { ProgramActions } from './components/Parser';
 import { Github } from './components/Github';
 import { Skillset } from './components/Skillset';
@@ -41,6 +41,7 @@ export function Promptfolio() {
 	const commandHistory = useSelector(selectCommandHistory);
 	const commandOutput = useSelector(selectcommandOutput);
 	const fileSystem = useSelector(selectFileSystem);
+	const {programList, parseCommand} = Parser();
 
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(commandHistory.length);
@@ -48,10 +49,17 @@ export function Promptfolio() {
 	const fireCommand = (command: string) => {
 		dispatch(pushCommand(command));
 
-		const programResult = parseCommand(command, fileSystem);
+		const programResult = parseCommand(command);
 		if (programResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
 			dispatch(clearOutput());
 			dispatch(clearCommand());
+		} else if (programResult.action.indexOf(ProgramActions.REDIRECT) > -1){
+			window.open(programResult.args);
+			dispatch(pushOutput({
+				...programResult,
+				action: ProgramActions.RENDER,
+				args: `Opening ${programResult.args} in a new tab`
+			}));
 		} else {
 			dispatch(pushOutput(programResult));
 		}

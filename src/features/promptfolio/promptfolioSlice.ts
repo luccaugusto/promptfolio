@@ -9,6 +9,7 @@ export interface PromptfolioState {
   output: programResult[],
   username: string,
   hostname: string,
+  fullpath: string[],
   PWD: string,
   fileSystem: {[index: string]: any},
 }
@@ -21,10 +22,22 @@ const initialState: PromptfolioState = {
   output: [{component: componentNames.TEXT, args: welcomeText, action: ProgramActions.RENDER}],
   username: 'lucca',
   hostname: 'portfolio',
+  fullpath: ['~'],
   PWD: '~',
   fileSystem: {
-		'resume.pdf': `${process.env.PUBLIC_URL}/resume.pdf`,
-    'linkedin.pdf': `${process.env.PUBLIC_URL}/linkedin.pdf`,
+    '~' : {
+      'resume.pdf': `${process.env.PUBLIC_URL}/resume.pdf`,
+      'linkedin-short.pdf': `${process.env.PUBLIC_URL}/linkedin.pdf`,
+      github: {
+        promptfolio: {url: `${process.env.REACT_APP_GITHUB_URL}/promptfolio`},
+        tarts: {url: `${process.env.REACT_APP_GITHUB_URL}/tarts`},
+        rice: {url: `${process.env.REACT_APP_GITHUB_URL}/rice`},
+        github: {url: process.env.REACT_APP_GITHUB_URL},
+      },
+      linkedin: {
+        url: process.env.REACT_APP_LINKEDIN_URL
+      }
+    }
   },
 };
 
@@ -39,6 +52,12 @@ export const promptfolioSlice = createSlice({
     pushOutput: (state, action: PayloadAction<programResult>) => {
       state.output.push(action.payload);
     },
+    pushFullpath: (state, action: PayloadAction<string>) => {
+      state.fullpath.push(action.payload);
+    },
+    popFullpath: (state) => {
+      state.fullpath.pop();
+    },
     clearOutput: (state) => {
       state.output = [];
     },
@@ -51,17 +70,19 @@ export const promptfolioSlice = createSlice({
     updatePS1Host: (state, action: PayloadAction<string>) => {
       state.hostname = action.payload;
     },
-    updatePS1Directory: (state, action: PayloadAction<string>) => {
+    updatePWD: (state, action: PayloadAction<string>) => {
       state.PWD = action.payload;
     },
   },
 });
 
-export const { pushCommand, pushOutput, clearOutput, updatePS1Directory, clearCommand } = promptfolioSlice.actions;
+export const { pushCommand, pushOutput, pushFullpath, popFullpath, clearOutput, updatePWD, clearCommand } = promptfolioSlice.actions;
 export const selectCommandHistory = (state: RootState) => state.promptfolio.commandHistory;
 export const selectcommandOutput = (state: RootState) => state.promptfolio.commandOutput;
 export const selectOutput = (state: RootState) => state.promptfolio.output;
 export const selectPS1 = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname} ${state.promptfolio.PWD} >`;
 export const selectFileSystem = (state: RootState) => state.promptfolio.fileSystem;
+export const selectPWD = (state: RootState) => state.promptfolio.PWD;
+export const selectFullpath = (state: RootState) => state.promptfolio.fullpath;
 
 export default promptfolioSlice.reducer;
