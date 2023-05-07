@@ -146,11 +146,11 @@ export function Promptfolio() {
 	const generateFullOutput = () => {
 		const fullOutput = [];
 		for (let i=0; i < commandOutput.length; i++) {
-			let commandValue = commandOutput[i];
-			if (commandOutput[i] === 'welcome') {
+			let commandValue = commandOutput[i].command;
+			if (commandOutput[i].command === 'welcome') {
 				commandValue = '';
 			}
-			fullOutput.push({type: 'command', args: commandValue, component: componentNames.TEXT});
+			fullOutput.push({type: 'command', args: commandValue, component: componentNames.TEXT, fullpath: commandOutput[i].PWD});
 			fullOutput.push({type: 'output', args: outputHistory[i].args, component: outputHistory[i].component});
 		}
 		return fullOutput.slice(0).reverse();
@@ -167,7 +167,7 @@ export function Promptfolio() {
 						key={`line-${index}`}
 						className={line.type === 'command' && line.args === '' ? styles.hidden : ''}
 					>
-						<Component args={line.args} type={line.type} />
+						<Component args={line.args} type={line.type} fullpath={line.fullpath}/>
 					</li>
 				)})
 			}

@@ -1,19 +1,20 @@
 import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
-import { selectPS1 } from '../promptfolioSlice';
+import { selectUserAtHost } from '../promptfolioSlice';
 
 interface TextRenderProps {
 	args: string,
-	type?: string,
+	type: string,
+	fullpath: string,
 }
 
 export function TextRender(props: TextRenderProps) {
 	const {args, type} = props;
-	const PS1 = useSelector(selectPS1);
+	const userAtHost = useSelector(selectUserAtHost);
 
 	return (
 		<div>
-		{ type === 'command' ? <span className={styles.PS1}>{PS1} </span> : '' }
+		{ type === 'command' ? <span className={styles.PS1}>{`${userAtHost} ${props.fullpath} >`} </span> : '' }
 		<span dangerouslySetInnerHTML={{__html: args}}></span>
 		</div>
 	);

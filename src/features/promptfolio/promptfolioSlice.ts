@@ -5,7 +5,7 @@ import { componentNames } from './Promptfolio';
 
 export interface PromptfolioState {
   commandHistory: string[],
-  commandOutput: string[],
+  commandOutput: {command: string, PWD: string}[],
   output: programResult[],
   username: string,
   hostname: string,
@@ -18,7 +18,7 @@ const welcomeText = "Linux V4.7.10 Psychotic Stoned Sheep</br>Welcome to Lucca's
 
 const initialState: PromptfolioState = {
   commandHistory: ['welcome'],
-  commandOutput: ['welcome'],
+  commandOutput: [{command: 'welcome', PWD: '~'}],
   output: [{component: componentNames.TEXT, args: welcomeText, action: ProgramActions.RENDER}],
   username: 'lucca',
   hostname: 'portfolio',
@@ -47,7 +47,7 @@ export const promptfolioSlice = createSlice({
   reducers: {
     pushCommand: (state, action: PayloadAction<string>) => {
       state.commandHistory.push(action.payload);
-      state.commandOutput.push(action.payload);
+      state.commandOutput.push({command: action.payload, PWD: state.fullpath.join('/')});
     },
     pushOutput: (state, action: PayloadAction<programResult>) => {
       state.output.push(action.payload);
@@ -81,6 +81,7 @@ export const selectCommandHistory = (state: RootState) => state.promptfolio.comm
 export const selectcommandOutput = (state: RootState) => state.promptfolio.commandOutput;
 export const selectOutput = (state: RootState) => state.promptfolio.output;
 export const selectPS1 = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname} ${state.promptfolio.PWD} >`;
+export const selectUserAtHost = (state: RootState) => `${state.promptfolio.username}@${state.promptfolio.hostname}`;
 export const selectFileSystem = (state: RootState) => state.promptfolio.fileSystem;
 export const selectPWD = (state: RootState) => state.promptfolio.PWD;
 export const selectFullpath = (state: RootState) => state.promptfolio.fullpath;

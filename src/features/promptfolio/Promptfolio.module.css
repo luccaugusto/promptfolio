@@ -37,7 +37,8 @@ input, input:focus-visible {
 .commandLine input {
 	font-size: 20pt;
 	font-family: 'Monaco';
-	width: 80%
+	max-width: 80%;
+	min-width: 50%;
 }
 .terminal {
 	margin: 0.2rem;
