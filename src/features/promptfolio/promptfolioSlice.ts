@@ -86,4 +86,13 @@ export const selectFileSystem = (state: RootState) => state.promptfolio.fileSyst
 export const selectPWD = (state: RootState) => state.promptfolio.PWD;
 export const selectFullpath = (state: RootState) => state.promptfolio.fullpath;
 
+export const selectCurrentDir = (state: RootState) => {
+  let currentDir = state.promptfolio.fileSystem['~'];
+  state.promptfolio.fullpath.slice(1).forEach((dir) => {
+    currentDir = currentDir[dir];
+  });
+  return currentDir;
+}
+
+
 export default promptfolioSlice.reducer;

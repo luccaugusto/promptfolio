@@ -9,7 +9,7 @@ import {
 	selectCommandHistory,
 	selectOutput,
     selectcommandOutput,
-    selectFileSystem,
+    selectCurrentDir,
 } from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
 import { useSelector } from 'react-redux';
@@ -40,7 +40,7 @@ export function Promptfolio() {
 	const outputHistory = useSelector(selectOutput);
 	const commandHistory = useSelector(selectCommandHistory);
 	const commandOutput = useSelector(selectcommandOutput);
-	const fileSystem = useSelector(selectFileSystem);
+	const currentDir = useSelector(selectCurrentDir);
 	const {programList, parseCommand} = Parser();
 
 	const [commandLine, setCommandLine] = useState('');
@@ -101,7 +101,7 @@ export function Promptfolio() {
 		if (commandLine.indexOf(' ') > -1) {
 			const file = commandLine.split(' ')[1]
 			cmdLength = file.length
-			Object.keys(fileSystem).forEach(fileName => {
+			Object.keys(currentDir).forEach(fileName => {
 				console.log(fileName.substring(0, cmdLength) === file);
 				if (fileName.substring(0, cmdLength) === file) {
 					possibleValues.push(fileName);

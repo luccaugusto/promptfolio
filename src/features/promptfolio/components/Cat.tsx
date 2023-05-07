@@ -1,16 +1,16 @@
 import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
-import { selectFileSystem } from '../promptfolioSlice';
+import { selectCurrentDir} from '../promptfolioSlice';
 
 interface CatProps {
 	args: string,
 }
 
 export function Cat(props: CatProps) {
-	const fileSystem = useSelector(selectFileSystem);
+	const currentDir = useSelector(selectCurrentDir);
 
 	const getFileFullPath = (file: string) => {
-		let path = fileSystem[file];
+		let path = currentDir[file];
 		if (!path) {
 			path = '';
 		}

@@ -1,7 +1,7 @@
 import styles from '../Promptfolio.module.css';
 import { componentNames } from '../Promptfolio';
 import { useSelector } from 'react-redux';
-import { popFullpath, pushFullpath, selectFileSystem, selectFullpath, selectPWD, updatePWD } from '../promptfolioSlice';
+import { selectCurrentDir, popFullpath, pushFullpath, selectFullpath, selectPWD, updatePWD } from '../promptfolioSlice';
 import { useAppDispatch } from '../../../app/hooks';
 
 export const enum ProgramActions {
@@ -19,18 +19,10 @@ export interface programResult {
 }
 
 export function Parser() {
-  const fs = useSelector(selectFileSystem);
   const PWD = useSelector(selectPWD);
   const dispatch = useAppDispatch();
   const fullPath = useSelector(selectFullpath);
-
-  const getCurrentDir = () => {
-    let currentDir = fs['~'];
-    fullPath.slice(1).forEach((dir) => {
-      currentDir = currentDir[dir];
-    });
-    return currentDir;
-  }
+  const currentDir = useSelector(selectCurrentDir);
 
   const programList = new Map();
   programList.set('status', function Status(): programResult {
@@ -42,7 +34,6 @@ export function Parser() {
     };
   });
   programList.set('ls', function Ls(): programResult {
-    const currentDir = getCurrentDir();
     return {
       args: Object.keys(currentDir).map((k) =>{
         const classes = typeof(currentDir[k]) === 'object' ?
@@ -141,8 +132,6 @@ export function Parser() {
       }
       return {component, args: '', action, description};
     }
-
-    const currentDir = getCurrentDir();
 
     if (!currentDir[args]) {
       return {
