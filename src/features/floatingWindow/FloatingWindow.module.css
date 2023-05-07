@@ -1,0 +1,16 @@
+.floatingDiv {
+	width: 700pt;
+    height: 500pt;
+    border-radius: 5px;
+    border: 2px solid rgb(0, 180, 216);
+	padding-bottom: 25pt;
+}
+.body {
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+}
+.header {
+	height: 25pt;
+	background-color: #5ca5a5;
+}
