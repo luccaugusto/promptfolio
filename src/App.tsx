@@ -5,7 +5,7 @@ import { FloatingWindow } from './features/floatingWindow/FloatingWindow';
 function App(props:any) {
 	return (
 		<div className="App">
-			<FloatingWindow {...props}>
+			<FloatingWindow {...props} windowName={"Prompfolio"}>
 				<Promptfolio />
 			</FloatingWindow>
 		</div>

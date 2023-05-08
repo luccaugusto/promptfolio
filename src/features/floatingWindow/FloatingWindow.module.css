@@ -1,9 +1,10 @@
 .floatingDiv {
-	width: 700pt;
+	width: 80%;
     height: 500pt;
     border-radius: 5px;
     border: 2px solid rgb(0, 180, 216);
 	padding-bottom: 25pt;
+	position: absolute;
 }
 .body {
 	height: 100%;
@@ -11,6 +12,8 @@
 	display: flex;
 }
 .header {
-	height: 25pt;
-	background-color: #5ca5a5;
+    height: 25pt;
+    background-color: #5ca5a5;
+    line-height: 25pt;
+    padding: 0 0.4rem;
 }

@@ -1,12 +1,38 @@
+import { useState } from 'react';
 import styles from './FloatingWindow.module.css';
 
-export function FloatingWindow({children}: any) {
+export function FloatingWindow({children, windowName}: any) {
+
+	const [top, setTop] = useState(0);
+	const [left, setLeft] = useState(0);
+	const [initialTop, setInitialTop] = useState(0);
+	const [initialLeft, setInitialLeft] = useState(0);
+
+	const handleWindowDrag = (event: React.DragEvent<HTMLDivElement>) => {
+		setTop(event.pageY - initialTop);
+		setLeft(event.pageX - initialLeft);
+	}
+
+	const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+		const div = event.target as HTMLDivElement;
+		setInitialTop(event.pageY - div.offsetTop);
+		setInitialLeft(event.pageX - div.offsetLeft);
+	}
+
 	return (
-		<div className={styles.floatingDiv}>
+		<div
+			className={styles.floatingDiv}
+			onDragEnd={(event) => handleWindowDrag(event)}
+			onDragStart={(event) => handleDragStart(event)}
+			draggable={true}
+			id={windowName}
+			style={{top: `${top}px`, left: `${left}px`}}
+		>
 			<div className={styles.header}>
+				<span>{windowName}</span>
 			</div>
 			<div className={styles.body}>
-			{children}
+				{children}
 			</div>
 		</div>
 	);
