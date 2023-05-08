@@ -85,7 +85,7 @@ input, input:focus-visible {
 	padding: 2pt;
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 100%;
 	border-bottom: 1px dashed;
 }
 .skillBubbleWrapper {

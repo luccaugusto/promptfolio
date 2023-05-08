@@ -102,7 +102,6 @@ export function Promptfolio() {
 			const file = commandLine.split(' ')[1]
 			cmdLength = file.length
 			Object.keys(currentDir).forEach(fileName => {
-				console.log(fileName.substring(0, cmdLength) === file);
 				if (fileName.substring(0, cmdLength) === file) {
 					possibleValues.push(fileName);
 					possibleValuesCount+=1;
