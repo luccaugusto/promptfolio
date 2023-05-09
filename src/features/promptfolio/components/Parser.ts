@@ -125,7 +125,7 @@ export function Parser() {
     let component = componentNames.TEXT;
     let action = ProgramActions.RENDER;
     let url = '';
-    if (args === '..') {
+    if (args.slice(0,2) === '..') {
       if (PWD !== '~') {
         dispatch(updatePWD(fullPath.slice(0, fullPath.length-1).join('/')));
         dispatch(popFullpath());
@@ -133,26 +133,30 @@ export function Parser() {
       return {component, args: '', action, description};
     }
 
-    if (!currentDir[args]) {
-      return {
-        component,
-        args: `cd: ${args}: No such file or directory`,
-        action,
-        description,
+    let currentDirectory = currentDir;
+    args.split('/').forEach((dir) => {
+      if (!currentDirectory[dir]) {
+        return {
+          component,
+          args: `cd: ${args}: No such file or directory`,
+          action,
+          description,
+        }
       }
-    }
 
-    //Redirect
-    if (typeof(currentDir[args] === 'object') && currentDir[args].url) {
-      action = ProgramActions.REDIRECT;
-      url = currentDir[args].url;
-    }
+      //Redirect
+      if (typeof(currentDirectory[dir] === 'object') && currentDirectory[dir].url) {
+        action = ProgramActions.REDIRECT;
+        url = currentDirectory[dir].url;
+      }
 
-    //change directory
-    else {
-      dispatch(updatePWD(`${PWD}/${args}`));
-      dispatch(pushFullpath(args));
-    }
+      //change directory
+      else {
+        dispatch(updatePWD(`${PWD}/${dir}`));
+        dispatch(pushFullpath(dir));
+        currentDirectory = currentDirectory[dir];
+      }
+    });
 
     return { component, args: url, action, description };
   });
