@@ -100,7 +100,6 @@ export function Parser() {
       I do love terminal applications and i try to do most of my work without GUI applications.<br/>
       I feel a lot more confortable not having to use the mouse. This project reflects this directly.<br/>
       As i mentioned before, Promptfolio is developed in ReactJS, using Redux<br/>
-      (i didn't really need to use it, but i really wanted to just to practice).<br/>
       You can find the source code in my github page (just type cd github/promptfolio to get there)<br/>
       Fun fact, <a href="https://en.wikipedia.org/wiki/Linux_kernel_version_history#Releases_4.x.y" target="_blank" rel="noreferrer">linux 4.7.10 was actually named Psychotic Stoned Sheep</a>`,
         action: ProgramActions.RENDER,
