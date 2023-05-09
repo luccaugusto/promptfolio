@@ -120,10 +120,22 @@ export function Parser() {
       description: 'Show welcome message'
     }
   });
+  programList.set('write', function Write(args: string): programResult {
+    const welcomeText = `<a href="mailto:lucca@luccaaugusto.xyz?subject=${args}">Click here to email me</a>`;
+    return {
+      component: componentNames.TEXT,
+      args: welcomeText,
+      action: ProgramActions.RENDER,
+      description: '[subject] contact me via email.'
+    }
+  });
   programList.set('cd', function Cd(args: string): programResult {
     const description = 'Change directory into the specified directory';
     let component = componentNames.TEXT;
     let action = ProgramActions.RENDER;
+    if (!args) {
+      return {component, args: 'error: directory not informed', action, description};
+    }
     let url = '';
     if (args.slice(0,2) === '..') {
       if (PWD !== '~') {
