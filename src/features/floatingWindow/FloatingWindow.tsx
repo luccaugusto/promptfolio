@@ -9,6 +9,9 @@ export function FloatingWindow({children, windowName}: any) {
 	const [initialLeft, setInitialLeft] = useState(0);
 
 	const handleWindowDrag = (event: React.DragEvent<HTMLDivElement>) => {
+		if (event.pageY === 0 && event.pageX === 0) {
+			return;
+		}
 		setTop(event.pageY - initialTop);
 		setLeft(event.pageX - initialLeft);
 	}
@@ -22,7 +25,7 @@ export function FloatingWindow({children, windowName}: any) {
 	return (
 		<div
 			className={styles.floatingDiv}
-			onDragEnd={(event) => handleWindowDrag(event)}
+			onDrag={(event) => handleWindowDrag(event)}
 			onDragStart={(event) => handleDragStart(event)}
 			draggable={true}
 			id={windowName}
