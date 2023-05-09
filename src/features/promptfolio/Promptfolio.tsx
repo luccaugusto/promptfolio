@@ -172,7 +172,7 @@ export function Promptfolio() {
 			}
 			</ul>
 			<Input
-				className={`${styles.terminalColors} ${styles.commandLine}`}
+				className={styles.commandLine}
 				value={commandLine}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCommandLine(e.target.value)}
 				onKeyDown={handleKeyPress}

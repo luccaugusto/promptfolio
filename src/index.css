@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*TODO: Cooler background, maybe something moving in a pattern and terminal is transparent */
-  background-color: #000;
+  background-image: url(../public/wallpaper.jpg);
 }
 
 @font-face {

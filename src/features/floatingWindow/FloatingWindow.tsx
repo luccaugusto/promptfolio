@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './FloatingWindow.module.css';
 
-export function FloatingWindow({children, windowName}: any) {
-
+export function FloatingWindow({children, windowName, defaultTop, defaultLeft}: any) {
 	const [top, setTop] = useState(0);
 	const [left, setLeft] = useState(0);
 	const [initialTop, setInitialTop] = useState(0);
 	const [initialLeft, setInitialLeft] = useState(0);
+
+	useEffect(() => {
+		setTop(defaultTop);
+		setLeft(defaultLeft);
+	}, [defaultLeft, defaultTop]);
 
 	const handleWindowDrag = (event: React.DragEvent<HTMLDivElement>) => {
 		if (event.pageY === 0 && event.pageX === 0) {

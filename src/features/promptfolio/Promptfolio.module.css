@@ -50,11 +50,10 @@ input, input:focus-visible {
 }
 .terminalColors {
 	color: #f0ead2;
-	background-color: #2b2d42;
+	background-color: #2b2d42d9;
 }
 .terminalColors input {
 	color: #f0ead2;
-	background-color: #2b2d42;
 }
 .hidden {
 	display: none;
