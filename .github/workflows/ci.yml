@@ -19,6 +19,9 @@ jobs:
       - name: Install npm
         run: sudo apt-get install npm
 
+      - name: Install React-scripts
+        run: sudo npm i react-scripts
+
       - name: Build
         run: sudo npm run build
 
