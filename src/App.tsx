@@ -3,6 +3,7 @@ import './App.css';
 import { FloatingWindow } from './features/floatingWindow/FloatingWindow';
 
 function App(props:any) {
+
 	return (
 		<div className="App">
 			<FloatingWindow
