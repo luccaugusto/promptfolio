@@ -17,7 +17,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Install npm
-        run: sudo apt-get npm
+        run: sudo apt-get install npm
 
       - name: Build
         run: sudo npm run build
