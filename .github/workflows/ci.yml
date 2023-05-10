@@ -1,0 +1,34 @@
+name: CI
+run-name: portfolio deploy
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: deploy
+    steps:
+      - name: Checkout the current branch
+        uses: actions/checkout@v3
+
+      - name: Initialize the ssh-agent
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install npm
+        run: sudo apt-get npm
+
+      - name: Build
+        run: sudo npm run build
+
+      - name: Scan the host key
+        run: mkdir -p ~/.ssh/ && ssh-keyscan -H $DEPLOY_SERVER >> ~/.ssh/known_hosts
+        env:
+          DEPLOY_SERVER: ${{ secrets.DEPLOY_SERVER }}
+
+      - name: Deploy the website
+        run: rsync -avz build/ $DEPLOY_USERNAME@$DEPLOY_SERVER:/var/www/luccaaugusto.xyz/html/
+        env:
+          DEPLOY_SERVER: ${{ secrets.DEPLOY_SERVER }}
+          DEPLOY_USERNAME: ${{ secrets.DEPLOY_USERNAME }}
