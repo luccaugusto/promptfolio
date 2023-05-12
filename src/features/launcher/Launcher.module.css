@@ -1,0 +1,20 @@
+.launcherContainer {
+	background: rgb(163,163,163);
+	background: linear-gradient(0deg, rgba(163,163,163,1) 20%, rgba(175,175,175,0.5578606442577031) 100%);
+    width: 80%;
+    height: 12%;
+    position: absolute;
+    bottom: 2%;
+    left: 10%;
+    border-radius: 25pt;
+	display: inline-flex;
+	justify-content: space-around;
+}
+
+.icon {
+    display: flex;
+    height: 90pt;
+    position: relative;
+    top: -20%;
+    margin: 0 20pt;
+}

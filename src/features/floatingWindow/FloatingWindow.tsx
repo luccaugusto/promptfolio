@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './FloatingWindow.module.css';
 
-export function FloatingWindow({children, windowName, defaultTop, defaultLeft}: any) {
+export function FloatingWindow({children, windowName, defaultTop, defaultLeft, onTop, onClose}: any) {
 	const [top, setTop] = useState(0);
 	const [left, setLeft] = useState(0);
 	const [initialTop, setInitialTop] = useState(0);
@@ -28,15 +28,16 @@ export function FloatingWindow({children, windowName, defaultTop, defaultLeft}: 
 
 	return (
 		<div
-			className={styles.floatingDiv}
+			className={`${styles.floatingDiv} ${onTop ? styles.onTop : ''}`}
 			onDrag={(event) => handleWindowDrag(event)}
 			onDragStart={(event) => handleDragStart(event)}
 			draggable={true}
-			id={windowName}
+			id={`${windowName}-${Math.random()*10}`}
 			style={{top: `${top}px`, left: `${left}px`}}
 		>
 			<div className={styles.header}>
 				<span>{windowName}</span>
+				<span className={styles.close} onClick={() => onClose(windowName)}>close</span>
 			</div>
 			<div className={styles.body}>
 				{children}

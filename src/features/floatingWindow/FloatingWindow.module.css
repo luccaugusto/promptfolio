@@ -18,3 +18,10 @@
     line-height: 25pt;
     padding: 0 0.4rem;
 }
+.onTop {
+	z-index: 1000;
+}
+.close {
+	position: absolute;
+	right: 5pt;
+}
