@@ -4,9 +4,10 @@ import { useRef, useState } from 'react';
 import React from 'react';
 import { Launcher } from './features/launcher/Launcher';
 import { programDesktopEntry } from './features/launcher/ProgramList';
+import { Promptfolio } from './features/promptfolio/Promptfolio';
 
 function App(props:any) {
-	const [programs, setPrograms] = useState([] as React.FC[]);
+	const [programs, setPrograms] = useState([Promptfolio] as React.FC[]);
 	const [active, setActive] = useState(0);
 	const windowRef = useRef<HTMLDivElement | null>(null);
 
