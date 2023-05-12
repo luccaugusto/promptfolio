@@ -8,6 +8,6 @@ export interface programDesktopEntry {
 export const programList: programDesktopEntry[] = [
   {
     program: Promptfolio,
-    icon: `${process.env.PUBLIC_URL}/icon.jpg`
+    icon: `${process.env.PUBLIC_URL}/icon.png`
   }
 ];
