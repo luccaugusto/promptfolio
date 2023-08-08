@@ -31,7 +31,7 @@ jobs:
           DEPLOY_SERVER: ${{ secrets.DEPLOY_SERVER }}
 
       - name: Deploy the website
-        run: rsync -avz build/ $DEPLOY_USERNAME@$DEPLOY_SERVER:/var/www/luccaaugusto.xyz/html/
+        run: rsync -avz build/ $DEPLOY_USERNAME@$DEPLOY_SERVER:/var/www/arte.luccaaugusto.xyz/html/
         env:
           DEPLOY_SERVER: ${{ secrets.DEPLOY_SERVER }}
           DEPLOY_USERNAME: ${{ secrets.DEPLOY_USERNAME }}
