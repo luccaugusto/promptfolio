@@ -4,37 +4,37 @@ const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 	javascript: {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "",
+		comment: "4 years of experience",
 		interested: true,
 	},
 	typescript: {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "",
+		comment: "1.5 years of experience",
 		interested: true,
 	},
 	python: {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "3 years experience with Django framework",
+		comment: "3 years experience with Django framework (version 3.5)",
 		interested: true,
 	},
 	php: {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "Worked a lot with wordpress websites",
+		comment: "4+ years of experience. Every project i worked on relied on Wordpress for a piece of the puzzle, some projects more, some projects less.",
 		interested: false,
 	},
 	C: {
 		experience: "Personal and College experience",
 		level: "Intermediate",
-		comment: "I really enjoy working with C in programming exercises and challenges",
+		comment: "I really enjoy working with C in programming exercises and challenges, currently i have no professional experience with C, but i use it a lot in my personal projects",
 		interested: true,
 	},
 	rust: {
 		experience: "",
-		level: "Begginer",
-		comment: "I would love to dive deep in Rust but i've only had the time to use it briefly on a small personal project. I do plan on working more with Rust",
+		level: "Beginner",
+		comment: "I would love to dive deep in Rust but I've only had the time to use it briefly on a small personal project. I do plan on working more with Rust",
 		interested: true,
 	},
 	java: {
@@ -46,13 +46,13 @@ const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 	"Node.js": {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "",
+		comment: "1.5 years of experience",
 		interested: true,
 	},
 	"Rest API": {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "",
+		comment: "always worked with REST API's",
 		interested: true,
 	},
 	"Relational DB": {
@@ -64,19 +64,19 @@ const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 	"ReactJS": {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "Although i have 1.5 years of experience with React, and 4 years of frontend development overall, it is not really my thing. I can do it, but i take a little bit more time and i would rather work on the backend",
+		comment: "2 years of experience with React, and 4 years of frontend development overall, it is not really my thing. I'm backend heavy in a 65% 35% proportion",
 		interested: false,
 	},
 	"AWS (EC2, Lambda, S3, ECS)": {
 		experience: "Work Experience",
-		level: "Begginer",
+		level: "Beginner",
 		comment: "",
 		interested: true,
 	},
 	"Git": {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "",
+		comment: "Always worked with Git",
 	},
 	"Docker": {
 		experience: "Work Experience",
