@@ -74,7 +74,7 @@ export function Parser() {
       component: componentNames.GITHUB,
       action: ProgramActions.RENDER,
       args: '',
-      description: 'Show github stats',
+      description: 'Show github stats (may take a little while to load)',
     }
   });
   programList.set('skillset', function Skillset(): programResult {
