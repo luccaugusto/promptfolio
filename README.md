@@ -7,7 +7,8 @@ This project is my dev portfolio. It's a ReactJS app built to simulate a linux t
 - [x] implement cat command to view my resume and other files
 - [x] implement cd command to go to other websites
 - [x] implement write command to send me an email (mailto)
-- [ ] implement CI/CD pipeline to deploy
+- [x] implement CI/CD pipeline to deploy
+- [ ] implement mobile friendly version
 - [ ] implement close and minimize buttons on floating window
 - [ ] implement toolbar to launch apps
 - [ ] think about other apps
