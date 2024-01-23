@@ -1,0 +1,69 @@
+.PS1 {
+	color: #ffb703;
+}
+.mobileColors {
+	color: #f0ead2;
+	background-color: #2b2d42d9;
+}
+.mobileWindow {
+	border-radius: 5px;
+	border: 2px solid rgb(0, 180, 216);
+	padding-bottom: 25pt;
+	box-shadow: 4px 4px 20px 12px #2a62b5;
+	margin: auto;
+	width: 90%;
+}
+.terminalColors input {
+	color: #f0ead2;
+}
+.hidden {
+	display: none;
+}
+.indented {
+	margin-left: 30pt;
+}
+.githubStats {
+	padding: 10pt;
+}
+.skillBubble {
+    font-size: 10pt;
+    padding: 3pt;
+    border: solid 2px #00b4d8;
+    border-radius: 15pt;
+    margin: 2pt;
+    background-color: #244968;
+	white-space: nowrap;
+	height: 12pt;
+}
+.skillName {
+	font-size: 18pt;
+}
+.skillSetWrapper {
+	margin: 5pt;
+}
+.skillWrapper {
+	padding: 2pt;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+	border-bottom: 1px dashed;
+}
+.skillBubbleWrapper {
+	display: flex;
+	align-content: space-around;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+.skillComment {
+	font-size: 14pt;
+}
+.catOutput {
+	margin: 0 20%;
+}
+.directory {
+	color: #24fab2;
+}
+.footnote {
+	font-size: 12pt;
+}

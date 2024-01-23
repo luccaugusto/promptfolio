@@ -5,6 +5,7 @@ import React from 'react';
 import { Launcher } from './features/launcher/Launcher';
 import { programDesktopEntry } from './features/launcher/ProgramList';
 import { Promptfolio } from './features/promptfolio/Promptfolio';
+import { MobilePage } from './features/mobilePage/MobilePage';
 
 function App(props:any) {
 	const [programs, setPrograms] = useState([Promptfolio] as React.FC[]);
@@ -48,26 +49,38 @@ function App(props:any) {
 			0;
 	};
 
-	return (
-		<div className="App" ref={windowRef}>
+
+	//Desktop version
+	let component = (
+		<div>
 			{
-				programs.map((p, index) => {
+			programs.map((p, index) => {
 					const Component = p;
 					return (
-						<FloatingWindow
+							<FloatingWindow
 							{...props}
 							windowName={p.name}
 							defaultTop={getRandomTop()}
 							defaultLeft={getRandomLeft()}
 							onTop={index === active}
 							onClose={closeProgram}
-						>
+							>
 							<Component key={`${p.name}-${Math.random()*10}`}/>
-						</FloatingWindow>
-					)
-				})
+							</FloatingWindow>
+						   )
+					})
 			}
 			<Launcher key={"Launcher"} openProgram={openProgram}/>
+		</div>
+	);
+
+	if (window.innerWidth < 720) {
+		component = <MobilePage/>;
+	}
+
+	return (
+		<div className="App" ref={windowRef}>
+			{component}
 		</div>
 	);
 }

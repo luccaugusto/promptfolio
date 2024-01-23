@@ -27,7 +27,7 @@ export function Parser() {
   const programList = new Map();
   programList.set('status', function Status(): programResult {
     return {
-      args: "improving my promptfolio project",
+      args: "Studying Ruby On Rails",
       action: ProgramActions.RENDER,
       component: componentNames.TEXT,
       description: "What i'm currently working on",

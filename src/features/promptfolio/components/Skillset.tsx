@@ -13,10 +13,16 @@ const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 		comment: "1.5 years of experience",
 		interested: true,
 	},
+	ruby: {
+		experience: "Personal projects",
+		level: "Experienced",
+		comment: "Mostly working with Ruby on Rails",
+		interested: true,
+	},
 	python: {
 		experience: "Work Experience",
 		level: "Advanced",
-		comment: "3 years experience with Django framework (version 3.5)",
+		comment: "2 years experience with Django framework (version 3.5)",
 		interested: true,
 	},
 	php: {
