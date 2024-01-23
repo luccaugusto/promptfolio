@@ -1,5 +1,17 @@
-.PS1 {
-	color: #ffb703;
+.row {
+	display: flex;
+}
+.social {
+	background-color: #3898a770;
+	border-radius: 10pt;
+	width: 35%;
+	text-align: center;
+	border: 2px solid #fff;
+	margin: 5%;
+	padding: 5pt;
+}
+.social > img {
+	height: 65pt;
 }
 .mobileColors {
 	color: #f0ead2;
@@ -13,9 +25,6 @@
 	box-shadow: 4px 4px 20px 12px #2a62b5;
 	margin: auto;
 	width: 90%;
-}
-.terminalColors input {
-	color: #f0ead2;
 }
 .hidden {
 	display: none;
@@ -66,5 +75,5 @@
 	color: #24fab2;
 }
 .footnote {
-	font-size: 12pt;
+	font-size: 10pt;
 }

@@ -1,6 +1,6 @@
 import styles from '../Promptfolio.module.css';
 
-const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
+export const skillTable: {[index: string]: {[index: string]: string | boolean}} = {
 	javascript: {
 		experience: "Work Experience",
 		level: "Advanced",
