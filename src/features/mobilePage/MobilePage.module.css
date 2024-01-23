@@ -6,9 +6,10 @@
 	background-color: #2b2d42d9;
 }
 .mobileWindow {
+	padding: 5pt;
+	padding-bottom: 25pt;
 	border-radius: 5px;
 	border: 2px solid rgb(0, 180, 216);
-	padding-bottom: 25pt;
 	box-shadow: 4px 4px 20px 12px #2a62b5;
 	margin: auto;
 	width: 90%;
