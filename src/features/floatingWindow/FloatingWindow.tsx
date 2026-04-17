@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import styles from './FloatingWindow.module.css';
 
+const transparentDragImage = new Image();
+transparentDragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 export function FloatingWindow({children, windowName, defaultTop, defaultLeft, onTop, onClose}: any) {
 	const [top, setTop] = useState(0);
 	const [left, setLeft] = useState(0);
@@ -21,6 +24,7 @@ export function FloatingWindow({children, windowName, defaultTop, defaultLeft, o
 	}
 
 	const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+		event.dataTransfer.setDragImage(transparentDragImage, 0, 0);
 		const div = event.target as HTMLDivElement;
 		setInitialTop(event.pageY - div.offsetTop);
 		setInitialLeft(event.pageX - div.offsetLeft);

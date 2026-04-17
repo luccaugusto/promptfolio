@@ -2,8 +2,6 @@ import './App.css';
 import { FloatingWindow } from './features/floatingWindow/FloatingWindow';
 import { useRef, useState } from 'react';
 import React from 'react';
-import { Launcher } from './features/launcher/Launcher';
-import { programDesktopEntry } from './features/launcher/ProgramList';
 import { Promptfolio } from './features/promptfolio/Promptfolio';
 import { MobilePage } from './features/mobilePage/MobilePage';
 
@@ -11,18 +9,6 @@ function App(props:any) {
 	const [programs, setPrograms] = useState([Promptfolio] as React.FC[]);
 	const [active, setActive] = useState(0);
 	const windowRef = useRef<HTMLDivElement | null>(null);
-
-	const openProgram = (program: programDesktopEntry) => {
-		const pIndex = programs.indexOf(program.program);
-		if (pIndex > -1) {
-			setActive(pIndex);
-			return;
-		}
-		const programList = programs.slice();
-		programList.push(program.program);
-		setPrograms(programList);
-		setActive(programList.length - 1);
-	}
 
 	const closeProgram = (programName: string) => {
 		const pIndex = programs.findIndex((p) => p.name === programName);
@@ -70,7 +56,6 @@ function App(props:any) {
 						   )
 					})
 			}
-			<Launcher key={"Launcher"} openProgram={openProgram}/>
 		</div>
 	);
 
