@@ -1,11 +1,11 @@
 .floatingDiv {
 	width: 80%;
-    height: 500pt;
-    border-radius: 5px;
-    border: 2px solid rgb(0, 180, 216);
+	height: 500pt;
+	border-radius: 6px;
+	border: 2px solid var(--base01);
 	padding-bottom: 25pt;
 	position: absolute;
-	box-shadow: 4px 4px 20px 12px #2a62b5
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 .body {
 	height: 100%;
@@ -13,15 +13,17 @@
 	display: flex;
 }
 .header {
-    height: 25pt;
-    background-color: #5ca5a5;
-    line-height: 25pt;
-    padding: 0 0.4rem;
+	height: 25pt;
+	background-color: #2d2d2d;
+	color: var(--base1);
+	line-height: 25pt;
+	padding: 0 0.5rem;
+	font-size: 0.857rem;
 }
 .onTop {
 	z-index: 1000;
 }
 .close {
 	position: absolute;
-	right: 5pt;
+	right: 0.5rem;
 }

@@ -1,3 +1,15 @@
+:root {
+  --base03: #002b36;
+  --base02: #073642;
+  --base01: #586e75;
+  --base0:  #839496;
+  --base1:  #93a1a1;
+  --yellow: #b58900;
+  --blue:   #268bd2;
+  --cyan:   #2aa198;
+  font-size: 14px;
+}
+
 body {
   margin: 0;
   font-family: 'Monaco', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,15 +17,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /*TODO: Cooler background, maybe something moving in a pattern and terminal is transparent */
-  background-image: url(../public/wallpaper.jpg);
+  background-color: var(--base03);
+  background-image: url(../public/wallpaper-flor.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--base0);
 }
 
 @font-face {
 	font-family: 'Monaco';
 	src: local('Monaco'), url(./fonts/Monaco.ttf) format('truetype');
-	/* other formats include: 'woff2', 'truetype, 'opentype',
-	'embedded-opentype', and 'svg' */
 }
 
 code {

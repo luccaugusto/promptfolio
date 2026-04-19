@@ -1,4 +1,3 @@
-import './App.css';
 import { FloatingWindow } from './features/floatingWindow/FloatingWindow';
 import { useRef, useState } from 'react';
 import React from 'react';

@@ -3,13 +3,13 @@
 	max-height: 95%;
 	margin: 0;
 	padding: 0;
-	-ms-overflow-style: none;  /* IE and Edge */
-	scrollbar-width: none;  /* Firefox */
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 	display: flex;
 	flex-direction: column-reverse;
 }
 .commandHistory a {
-	color: #7ebad7;
+	color: var(--blue);
 }
 .commandHistory::-webkit-scrollbar {
 	display: none;
@@ -19,21 +19,21 @@
 }
 input, input:focus-visible {
 	outline: none;
-	border:none;
-	background-image:none;
-	background-color:transparent;
+	border: none;
+	background-image: none;
+	background-color: transparent;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
 .PS1 {
-	color: #ffb703;
+	color: var(--yellow);
 }
 .commandLine {
 	width: 100%;
 }
 .commandLine input {
-	font-size: 20pt;
+	font-size: 1rem;
 	font-family: 'Monaco';
 	max-width: 80%;
 	min-width: 50%;
@@ -45,47 +45,47 @@ input, input:focus-visible {
 	bottom: 0;
 	right: 0;
 	overflow: hidden;
-	padding: 0 0.4rem;
+	padding: 0 0.5rem;
 	width: 100%;
 }
 .terminalColors {
-	color: #f0ead2;
-	background-color: #2b2d42d9;
+	color: var(--base0);
+	background-color: rgba(30, 30, 30, 0.95);
 }
 .terminalColors input {
-	color: #f0ead2;
+	color: var(--base0);
 }
 .hidden {
 	display: none;
 }
 .indented {
-	margin-left: 30pt;
+	margin-left: 1.5rem;
 }
 .githubStats {
-	padding: 10pt;
+	padding: 0.75rem;
 }
 .skillBubble {
-    font-size: 10pt;
-    padding: 3pt;
-    border: solid 2px #00b4d8;
-    border-radius: 15pt;
-    margin: 2pt;
-    background-color: #244968;
+	font-size: 0.714rem;
+	padding: 2px 6px;
+	border: 1px solid var(--blue);
+	border-radius: 999px;
+	margin: 2px;
+	background-color: var(--base02);
+	color: var(--base1);
 	white-space: nowrap;
-	height: 12pt;
 }
 .skillName {
-	font-size: 18pt;
+	font-size: 1rem;
 }
 .skillSetWrapper {
-	margin: 5pt;
+	margin: 0.4rem;
 }
 .skillWrapper {
-	padding: 2pt;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-	border-bottom: 1px dashed;
+	padding: 0.2rem 0;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	border-bottom: 1px dashed var(--base01);
 }
 .skillBubbleWrapper {
 	display: flex;
@@ -95,11 +95,12 @@ input, input:focus-visible {
 	justify-content: flex-end;
 }
 .skillComment {
-	font-size: 14pt;
+	font-size: 0.857rem;
+	color: var(--base01);
 }
 .catOutput {
 	margin: 0 20%;
 }
 .directory {
-	color: #24fab2;
+	color: var(--cyan);
 }

@@ -27,7 +27,7 @@ export function Parser() {
   const programList = new Map();
   programList.set('status', function Status(): programResult {
     return {
-      args: "Studying Ruby On Rails",
+      args: 'Currently building <a href="https://roadwayai.com" target="_blank" rel="noreferrer">RoadwayAI</a>',
       action: ProgramActions.RENDER,
       component: componentNames.TEXT,
       description: "What i'm currently working on",
