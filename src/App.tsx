@@ -1,65 +1,77 @@
 import { FloatingWindow } from './features/floatingWindow/FloatingWindow';
 import { useRef, useState } from 'react';
-import React from 'react';
-import { Promptfolio } from './features/promptfolio/Promptfolio';
 import { MobilePage } from './features/mobilePage/MobilePage';
+import { DesktopIcons } from './features/desktop/DesktopIcons';
+import { Program, programs } from './features/desktop/programs';
 
-function App(props:any) {
-	const [programs, setPrograms] = useState([Promptfolio] as React.FC[]);
+type OpenWindow = {
+	program: Program;
+	top: number;
+	left: number;
+};
+
+const WINDOW_HEIGHT_PX = 667; // matches FloatingWindow height: 500pt
+
+const centeredPosition = (): { top: number; left: number } => ({
+	top: Math.max(20, (window.innerHeight - WINDOW_HEIGHT_PX) / 2),
+	left: window.innerWidth * 0.1,
+});
+
+const initialOpenWindows = (): OpenWindow[] => {
+	const promptfolio = programs.find((p) => p.name === 'promptfolio');
+	if (!promptfolio) return [];
+	return [{ program: promptfolio, ...centeredPosition() }];
+};
+
+function App(props: any) {
+	const [openWindows, setOpenWindows] = useState<OpenWindow[]>(initialOpenWindows);
 	const [active, setActive] = useState(0);
 	const windowRef = useRef<HTMLDivElement | null>(null);
 
-	const closeProgram = (programName: string) => {
-		const pIndex = programs.findIndex((p) => p.name === programName);
-		if (pIndex === -1) {
+	const openProgram = (program: Program) => {
+		const existingIndex = openWindows.findIndex((w) => w.program.name === program.name);
+		if (existingIndex > -1) {
+			setActive(existingIndex);
 			return;
 		}
-		const programList = programs.slice();
-		programList.splice(pIndex, 1);
-		setPrograms(programList);
-		setActive(programList.length - 1);
-	}
-
-	const getRandomTop = () => {
-		return windowRef.current ?
-			(Math.random() * 1000 % windowRef.current.clientHeight)
-			:
-			0;
+		const next = [...openWindows, { program, ...centeredPosition() }];
+		setOpenWindows(next);
+		setActive(next.length - 1);
 	};
 
-	const getRandomLeft = () => {
-		return windowRef.current ?
-			(Math.random() * 1000 % windowRef.current.clientWidth)
-			:
-			0;
+	const closeProgram = (programName: string) => {
+		const index = openWindows.findIndex((w) => w.program.name === programName);
+		if (index === -1) return;
+		const next = openWindows.slice();
+		next.splice(index, 1);
+		setOpenWindows(next);
+		setActive(Math.max(0, next.length - 1));
 	};
 
-
-	//Desktop version
 	let component = (
 		<div>
-			{
-			programs.map((p, index) => {
-					const Component = p;
-					return (
-							<FloatingWindow
-							{...props}
-							windowName={p.name}
-							defaultTop={getRandomTop()}
-							defaultLeft={getRandomLeft()}
-							onTop={index === active}
-							onClose={closeProgram}
-							>
-							<Component key={`${p.name}-${Math.random()*10}`}/>
-							</FloatingWindow>
-						   )
-					})
-			}
+			<DesktopIcons programs={programs} onOpen={openProgram} />
+			{openWindows.map((w, index) => {
+				const { Component } = w.program;
+				return (
+					<FloatingWindow
+						{...props}
+						key={w.program.name}
+						windowName={w.program.name}
+						defaultTop={w.top}
+						defaultLeft={w.left}
+						onTop={index === active}
+						onClose={closeProgram}
+					>
+						<Component />
+					</FloatingWindow>
+				);
+			})}
 		</div>
 	);
 
 	if (window.innerWidth < 720) {
-		component = <MobilePage/>;
+		component = <MobilePage />;
 	}
 
 	return (

@@ -10,6 +10,13 @@
   font-size: 14px;
 }
 
+html {
+    scrollbar-width: none; /* For Firefox */
+}
+html::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, Edge */
+}
+
 body {
   margin: 0;
   font-family: 'Monaco', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
