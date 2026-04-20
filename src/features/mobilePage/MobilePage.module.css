@@ -110,11 +110,6 @@
 	color: var(--blue);
 }
 
-.pdfWrapper {
-	width: 100%;
-	height: 100%;
-}
-
 .emailButton {
 	display: inline-block;
 	margin-top: 1rem;

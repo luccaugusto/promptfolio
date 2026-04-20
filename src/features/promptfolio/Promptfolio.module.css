@@ -101,6 +101,10 @@ input, input:focus-visible {
 .catOutput {
 	margin: 0 20%;
 }
+.catResume {
+	width: 100%;
+	height: 1200px;
+}
 .directory {
 	color: var(--cyan);
 }

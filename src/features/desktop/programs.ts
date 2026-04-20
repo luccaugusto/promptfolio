@@ -1,6 +1,7 @@
 import React from "react";
 import { Promptfolio } from "../promptfolio/Promptfolio";
 import { YouPoop } from "../youpoop/YouPoop";
+import { Resume } from "../resume/Resume";
 
 export type Program = {
   name: string;
@@ -11,26 +12,49 @@ export type Program = {
   url?: string;
 };
 
+const asset = (file: string) => `${process.env.PUBLIC_URL}/${file}`;
+
 export const programs: Program[] = [
   {
     name: "promptfolio",
     label: "promptfolio",
-    icon: `${process.env.PUBLIC_URL}/promptfolio-icon.png`,
+    icon: asset("promptfolio-icon.png"),
     kind: "window",
     Component: Promptfolio,
   },
   {
+    name: "resume",
+    label: "Resume",
+    icon: asset("document-icon.jpg"),
+    kind: "window",
+    Component: Resume,
+  },
+  {
     name: "youpoop",
     label: "YouPoop",
-    icon: `${process.env.PUBLIC_URL}/youtube-icon.png`,
+    icon: asset("youtube-icon.png"),
     kind: "window",
     Component: YouPoop,
   },
   {
     name: "gallery",
     label: "Gallery",
-    icon: `${process.env.PUBLIC_URL}/gallery-icon.png`,
+    icon: asset("gallery-icon.png"),
     kind: "redirect",
     url: "https://luccaaugusto.xyz",
+  },
+  {
+    name: "github",
+    label: "GitHub",
+    icon: asset("github-icon.png"),
+    kind: "redirect",
+    url: process.env.REACT_APP_GITHUB_URL,
+  },
+  {
+    name: "linkedin",
+    label: "LinkedIn",
+    icon: asset("linkedin-icon.png"),
+    kind: "redirect",
+    url: process.env.REACT_APP_LINKEDIN_URL,
   },
 ];

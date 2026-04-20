@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skillset } from '../promptfolio/components/Skillset';
 import { MobileAbout } from './apps/MobileAbout';
-import { MobileResume } from './apps/MobileResume';
+import { Resume } from '../resume/Resume';
 import { MobileEmail } from './apps/MobileEmail';
 import { YouPoop } from '../youpoop/YouPoop';
 
@@ -36,7 +36,7 @@ export const apps: MobileApp[] = [
 		label: 'Resume',
 		icon: asset('document-icon.jpg'),
 		kind: 'content',
-		Component: MobileResume,
+		Component: Resume,
 	},
 	{
 		name: 'email',

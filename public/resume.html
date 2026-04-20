@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script src="https://kit.fontawesome.com/25199d3d0f.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: rgb(40, 40, 40);
+            font-family: sans-serif;
+        }
+        /* Link styling with subtle visual hints to indicate clickability */
+        a {
+            text-decoration: none;
+            color: #2a2a2a;
+            border-bottom: 1px dotted #6a6a6a;
+            transition: border-bottom-color 0.2s ease, color 0.2s ease;
+        }
+        /* Hover effect to make links more interactive */
+        a:hover {
+            color: #1a1a1a;
+            border-bottom-color: #4a4a4a;
+        }
+        /* A4 page container with exact height for proper pagination */
+        .page-container {
+            width: 210mm;
+            height: 297mm;
+            padding: 5mm 10mm;
+            margin: 10mm auto;
+            border: 1px #D3D3D3 solid;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+        /* Print media query for proper page breaks when printing */
+        @media print {
+            body {
+                background: white;
+            }
+            .page-container {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            .page-container:last-child {
+                page-break-after: auto;
+            }
+            /* Ensure proficiency circles are visible and properly sized when printing */
+            .proficiency-circles .circle {
+                display: inline-block !important;
+                width: 13px !important;
+                height: 13px !important;
+                min-width: 13px !important;
+                min-height: 13px !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            /* Ensure filled circles maintain their color when printing */
+            .proficiency-circles[data-level="1"] .circle:nth-child(-n+1),
+            .proficiency-circles[data-level="2"] .circle:nth-child(-n+2),
+            .proficiency-circles[data-level="3"] .circle:nth-child(-n+3),
+            .proficiency-circles[data-level="4"] .circle:nth-child(-n+4),
+            .proficiency-circles[data-level="5"] .circle:nth-child(-n+5) {
+                background-color: #4a4a4a !important;
+                border-color: #4a4a4a !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+        .header {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px 15px;
+            font-size: 12px;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        .item i {
+            margin-right: 5px;
+        }
+        .icon {
+            color: #3b454a;
+        }
+        .cv-body {
+            display: flex;
+            width: 100%;
+        }
+        .content {
+            flex: 5.5;
+            padding-right: 25pt;
+        }
+        .sidebar {
+            flex: 3.5;
+        }
+        .section-header {
+            font-size: 28px;
+            font-weight: 600;
+            color: #5b5b5b;
+            border-bottom: 3px solid #5b5b5b;
+            padding-bottom: 4px;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+        .description {
+            text-align: justify;
+            font-size: 15px;
+        }
+        .subtitle {
+            font-weight: 550;
+            color: #4a4a4a;
+            font-size: 14px;
+        }
+        .pill-list {
+            font-weight: 500;
+            color: #4a4a4a;
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pill-list li {
+            border-radius: 5px;
+            padding: 3px 6px;
+            font-size: 12px;
+            border: 1px solid #b8b8b8;
+        }
+        .skill-list {
+            margin-top: 8px;
+        }
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .skill-name {
+            color: #4a4a4a;
+            font-weight: 600;
+        }
+        .proficiency-circles {
+            display: flex;
+            gap: 4px;
+        }
+        /* Circle styling with explicit display and print-friendly properties */
+        .proficiency-circles .circle {
+            width: 13px;
+            height: 13px;
+            min-width: 13px;
+            min-height: 13px;
+            border-radius: 50%;
+            background-color: #d0d0d0;
+            display: inline-block;
+            /* Ensure colors print correctly */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+            /* Add border to ensure visibility even if background doesn't print */
+            border: 1px solid #d0d0d0;
+            box-sizing: border-box;
+        }
+        /* Filled circle style - applied based on data-level attribute */
+        /* Ensure filled circles print correctly with explicit color adjustment */
+        .proficiency-circles[data-level="1"] .circle:nth-child(-n+1),
+        .proficiency-circles[data-level="2"] .circle:nth-child(-n+2),
+        .proficiency-circles[data-level="3"] .circle:nth-child(-n+3),
+        .proficiency-circles[data-level="4"] .circle:nth-child(-n+4),
+        .proficiency-circles[data-level="5"] .circle:nth-child(-n+5) {
+            background-color: #4a4a4a;
+            border-color: #4a4a4a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .position {
+            font-size: 18px;
+            color: #404040;
+            font-weight: 600;
+        }
+        .location {
+            font-size: 16px;
+            color: #5a5a5a;
+        }
+        .date {
+            color: #6a6a6a;
+            font-size: 16px;
+        }
+        .split-list {
+            columns: 2;
+            column-gap: 1rem;
+            list-style: disc;
+            padding-left: 1.2rem;
+            margin: 0;
+            font-size: 18px;
+        }
+        .experience-block {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px dashed #d0d0d0;
+        }
+        .time-location {
+            display: flex;
+            gap: 15px;
+            margin-top: 4px;
+            font-size: 14px;
+            justify-content: space-between;
+        }
+    </style>
+    <title>Lucca Augusto</title>
+</head>
+<body>
+    
+    <!-- PAGE 1 -->
+    <div class="page-container">
+        <div class="header">
+            <h1 style="margin-bottom: 12px; font-weight: 600">LUCCA AUGUSTO MOREIRA SANTOS</h1>
+            <div class="contact-info">
+                
+                
+<div class="item">
+    <a href="mailto:lucca@luccaaugusto.xyz">
+        <i class="fa-solid fa-at icon"></i>lucca@luccaaugusto.xyz
+    </a>
+</div>
+
+                
+                
+<div class="item">
+    <a href="https://github.com/luccaugusto">
+        <i class="fa-brands fa-github"></i>github.com/luccaugusto
+    </a>
+</div>
+
+                
+                
+<div class="item">
+    <a href="https://www.linkedin.com/in/luccaugusto/">
+        <i class="fa-brands fa-linkedin-in"></i>linkedin.com/in/luccaugusto
+    </a>
+</div>
+
+                
+                
+<div class="item">
+    <a href="https://dev.luccaaugusto.xyz">
+        <i class="fa-solid fa-link"></i>https://dev.luccaaugusto.xyz
+    </a>
+</div>
+
+                
+                
+<div class="item">
+    <i class="fa-solid fa-location-dot"></i>Belo Horizonte, MG, Brazil
+</div>
+
+                
+                
+<div class="item">
+    <i class="fa-solid fa-cake-candles"></i>28/05/1999
+</div>
+
+                
+            </div>
+        </div>
+        <div class="cv-body">
+            <div class="content">
+                <h1 class="section-header">CAREER SUMMARY</h1>
+                <p class="description">
+                    <b>Software Engineer with generalist skills</b> experienced in working with agile methodologies, responsible for developing and maintaining solutions that support marketing, business and technology teams, able to anticipate scaling problems and executive needs, and building solutions that increase autonomy across teams, enabling faster changes and growth in any part of the project. Experience with Node.js, React, Python, PHP, Java, JavaScript, SQL, HTML, CSS, Tailwind, Django, Wordpress, C, Git, DevOps, GCP, AWS, AI and MCP.
+                </p>
+                <h1 class="section-header">PROFESSIONAL EXPERIENCE</h1>
+                
+                    
+<div class="experience-block">
+    <span class="position">Full Stack Software Engineer</span>
+    <span class="company"><a href="https://roadwayai.com">RoadwayAI</a> via <a href="https://nacif.xyz">NacifIT</a></span>
+    <div class="time-location">
+        <span class="date"><i class="fa-regular fa-calendar-days"></i>Feb 2024 - Present</span>
+        <span class="location"><i class="fa-solid fa-location-dot"></i>San Francisco-CA, US (Remote)</span>
+    </div>
+	<div class="description">
+    	<p>
+    Roadway AI is a Growth Marketing analytics and automation startup, with the goal of <b>automating the measurement,
+    modeling and analysis of the metrics that actually drive growth for companies at scale</b>.
+    As a full stack software engineer (allocated by NacifIT) in a lean team of four engineers, I work on the <b>development and maintenance of the entire platform</b>, including the Frontend
+    (ReactJS) to build dashboards, the Backend (Python FastAPI) responsible for
+    data orchestration and dashboard management, and customer data modeling and transformation
+    using SQL, dbt and a semantic layer (<a href="https://cube.dev">Cube.dev</a>).
+    The project has a <b>strong Generative AI layer</b>, which works on top of modeled data
+    to <b>generate detailed and actionable analytical reports</b>, using <b>MCP (Model Context Protocol) servers</b>
+    to integrate AI agents with internal tools and data sources. My main highlight is the <b>Attribution Manager</b>,
+    built mostly by me, a tool that allows us to <b>manage complex attribution rules for user source
+    based on UTMs and navigation history</b>.
+</p>
+
+	</div>
+</div>
+
+                
+            </div>
+            <div class="sidebar">
+                <h1 class="section-header">LANGUAGES</h1>
+                <div>
+                    <span class="subtitle">Machine</span>
+                    
+<div class="pill-list">
+    <li>C</li>
+    <li>Java</li>
+    <li>Python</li>
+    <li>PHP</li>
+    <li>JavaScript</li>
+    <li>TypeScript</li>
+    <li>Shell</li>
+    <li>Ruby</li>
+    <li>SQL</li>
+    
+</div>
+
+                </div>
+                <div>
+                    <span class="subtitle">Human</span>
+                    <div class="skill-list">
+                        
+                        
+<div class="skill-row">
+    <span class="skill-name">English (fluent)</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                        
+                        
+<div class="skill-row">
+    <span class="skill-name">Portuguese (native)</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                        
+                        
+<div class="skill-row">
+    <span class="skill-name">Japanese (basic)</span>
+    <div class="proficiency-circles" data-level="2">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                        
+                    </div>
+                </div>
+                <h1 class="section-header">TECHNOLOGY SKILLS</h1>
+                <div class="skill-list">
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">SQL</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Shell script</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Linux</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">HTML</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">CSS/Tailwind</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Git</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">FastAPI</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Docker</span>
+    <div class="proficiency-circles" data-level="5">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">ReactJS</span>
+    <div class="proficiency-circles" data-level="4">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Django</span>
+    <div class="proficiency-circles" data-level="4">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">NodeJS</span>
+    <div class="proficiency-circles" data-level="4">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">Generative AI</span>
+    <div class="proficiency-circles" data-level="4">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">MCP</span>
+    <div class="proficiency-circles" data-level="4">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">GCP</span>
+    <div class="proficiency-circles" data-level="3">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                    
+<div class="skill-row">
+    <span class="skill-name">AWS</span>
+    <div class="proficiency-circles" data-level="3">
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+        <span class="circle"></span>
+    </div>
+</div>
+
+                    
+                </div>
+                <h1 class="section-header">SOFT SKILLS</h1>
+                
+<div class="pill-list">
+    <li>Communication</li>
+    <li>Tenacity</li>
+    <li>Problem solving</li>
+    <li>Teamwork</li>
+    <li>Creativity</li>
+    <li>Resilience</li>
+    
+</div>
+
+                <h1 class="section-header">EDUCATION</h1>
+                
+                
+<div style="display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px;">
+    <span class="position">Bachelor's Degree in Computer Science</span>
+    <span class="location"><i class="fa-solid fa-location-dot"></i>PUC Minas</span>
+    <span class="date"><i class="fa-regular fa-calendar-days"></i>Jan 2017 - Jun 2021</span>
+</div>
+
+                
+                
+<div style="display: flex; flex-direction: column; gap: 3px;">
+    <span class="position">Technical Degree in Business Administration</span>
+    <span class="location"><i class="fa-solid fa-location-dot"></i>SEBRAE Contagem</span>
+    <span class="date"><i class="fa-regular fa-calendar-days"></i>Jan 2014 - Dec 2016</span>
+</div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page-container">
+        <div class="cv-body">
+            <div class="content">
+                <h1 class="section-header">PROFESSIONAL EXPERIENCE</h1>
+                
+                    
+<div class="experience-block">
+    <span class="position">Full Stack Software Engineer</span>
+    <span class="company">CityShoppe</span>
+    <div class="time-location">
+        <span class="date"><i class="fa-regular fa-calendar-days"></i>June 2021 - May 2023 </span>
+        <span class="location"><i class="fa-solid fa-location-dot"></i>Austin-TX, US (Remote)</span>
+    </div>
+	<div class="description">
+    	<p>
+    CityShoppe is a digital marketplace startup for small businesses in the US and Europe.
+    <br/>
+    As the second person in the dev team I was responsible for understanding everything about the business and tech stack, as well as <b>participating in all the software decisions and solutions finding</b>.
+    I also <b>helped hands on building all the company's products</b>, developing key features and setting up infrastructure to make it reliable and available. These efforts resulted in <b>raising over 200 thousand dollars in investment</b> for the company.
+    Most of the project was built in Wordpress before we moved to a NestJS application.
+    <br/>
+    Additionally,
+    <ul>
+        <li><b>Worked with people from 4 different countries</b> in one project, further developing my communication skills.</li>
+        <li>Developed products in NodeJS, NestJS and PHP, using AWS services (lambda, API gateway, ECS, EC2, etc) for infrastructure.</li>
+    </ul>
+</p>
+
+	</div>
+</div>
+
+                
+                    
+<div class="experience-block">
+    <span class="position">Full Stack Software Engineer</span>
+    <span class="company"><a href="https://educandoseubolso.blog.br">Educando Seu Bolso (https://educandoseubolso.blog.br)</a></span>
+    <div class="time-location">
+        <span class="date"><i class="fa-regular fa-calendar-days"></i>Aug 2017 – Jan 2019 / Aug 2019 - Jun 2020</span>
+        <span class="location"><i class="fa-solid fa-location-dot"></i>BH-MG, Brazil</span>
+    </div>
+	<div class="description">
+    	<p>
+Financial Edutech that connects companies and people through courses, podcasts and tools. Business model through affiliate programs and digital products.
+<br/>
+I joined the team as a intern and was responsible for <b>understanding the business from a tech perspective and helping build the business tools</b>. I quickly demonstrated skills of <b>communication</b> and <b>product development</b>, and was later hired. I <b>built a platform in Django</b> to manage all our data and <b>improve our tools, increasing efficiency for the marketing, commercial and technology teams</b>, as well as allowing for the business to grow faster. <b>Developed strong communication skills</b> as this job required constant communication with the commercial team to translate the idea into a user friendly tool.
+</p>
+
+	</div>
+</div>
+
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
