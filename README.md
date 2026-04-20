@@ -4,6 +4,5 @@ This project is my dev portfolio. It's a ReactJS app built to simulate a linux t
 ## GOALS
 - [ ] mobile friendly version
 - [ ] close and minimize buttons on floating window
-- [ ] desktop icons to launch apps
 - [ ] gallery app to show my art
 - [ ] funny youpoop app that loops a stupid cat video

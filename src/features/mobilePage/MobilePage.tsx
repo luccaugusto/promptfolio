@@ -1,20 +1,23 @@
-import { skillTable } from '../promptfolio/components/Skillset';
+import { useState } from 'react';
 import styles from './MobilePage.module.css';
+import { MobileApp } from './apps';
+import { MobileHome } from './MobileHome';
+import { MobileAppView } from './MobileAppView';
+import { MobileHomeBar } from './MobileHomeBar';
 
 export function MobilePage() {
-	return (
-		<div className={`${styles.mobileColors} ${styles.mobileWindow}`}>
-			<p className={styles.footnote}>This site is much more fun on the desktop version</p>
-			<span>Hi, My name is Lucca and i'm a software engineer currently improving my skills in Ruby</span>
+	const [openApp, setOpenApp] = useState<MobileApp | null>(null);
 
-			<div className={styles.row}>
-				<div className={styles.social}>
-					<img alt="GitHub" className={styles.icon} src={`${process.env.PUBLIC_URL}/github-icon.png`}/>
-				</div>
-				<div className={styles.social}>
-					<img alt="Linkedin" className={styles.icon} src={`${process.env.PUBLIC_URL}/linkedin-icon.png`}/>
-				</div>
-			</div>
+	return (
+		<div className={styles.mobilePage}>
+			<MobileHome onOpen={setOpenApp} />
+			{openApp && (
+				<MobileAppView app={openApp} onClose={() => setOpenApp(null)} />
+			)}
+			<MobileHomeBar
+				onHome={() => setOpenApp(null)}
+				interactive={openApp !== null}
+			/>
 		</div>
-	)
+	);
 }
