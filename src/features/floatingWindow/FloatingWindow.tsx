@@ -12,6 +12,7 @@ export function FloatingWindow({
   defaultLeft,
   onTop,
   onClose,
+  onFocus,
 }: any) {
   const [top, setTop] = useState(0);
   const [left, setLeft] = useState(0);
@@ -33,9 +34,10 @@ export function FloatingWindow({
 
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
     event.dataTransfer.setDragImage(transparentDragImage, 0, 0);
-    const div = event.target as HTMLDivElement;
+    const div = event.currentTarget;
     setInitialTop(event.pageY - div.offsetTop);
     setInitialLeft(event.pageX - div.offsetLeft);
+    if (onFocus) onFocus();
   };
 
   return (
@@ -43,8 +45,9 @@ export function FloatingWindow({
       className={`${styles.floatingDiv} ${onTop ? styles.onTop : ""}`}
       onDrag={(event) => handleWindowDrag(event)}
       onDragStart={(event) => handleDragStart(event)}
+      onMouseDown={() => onFocus && onFocus()}
       draggable={true}
-      id={`${windowName}-${Math.random() * 10}`}
+      id={windowName}
       style={{ top: `${top}px`, left: `${left}px` }}
     >
       <div className={styles.header}>

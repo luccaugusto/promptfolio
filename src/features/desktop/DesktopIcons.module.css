@@ -23,22 +23,19 @@
 	border: 1px solid transparent;
 }
 
-.icon:hover {
-	background-color: rgba(255, 255, 255, 0.08);
-	border-color: var(--base01);
+.icon:hover .iconImage {
+	transform: scale(1.05);
 }
 
 .iconImage {
 	width: 48px;
 	height: 48px;
-	background-color: var(--base02);
-	border: 1px solid var(--base01);
-	border-radius: 6px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	margin-bottom: 0.35rem;
 	overflow: hidden;
+	transition: transform 100ms ease;
 }
 
 .iconImage img {

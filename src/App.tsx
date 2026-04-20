@@ -29,6 +29,10 @@ function App(props: any) {
 	const windowRef = useRef<HTMLDivElement | null>(null);
 
 	const openProgram = (program: Program) => {
+		if (program.kind === 'redirect' && program.url) {
+			window.open(program.url, '_blank');
+			return;
+		}
 		const existingIndex = openWindows.findIndex((w) => w.program.name === program.name);
 		if (existingIndex > -1) {
 			setActive(existingIndex);
@@ -53,6 +57,7 @@ function App(props: any) {
 			<DesktopIcons programs={programs} onOpen={openProgram} />
 			{openWindows.map((w, index) => {
 				const { Component } = w.program;
+				if (!Component) return null;
 				return (
 					<FloatingWindow
 						{...props}
@@ -62,6 +67,7 @@ function App(props: any) {
 						defaultLeft={w.left}
 						onTop={index === active}
 						onClose={closeProgram}
+						onFocus={() => setActive(index)}
 					>
 						<Component />
 					</FloatingWindow>

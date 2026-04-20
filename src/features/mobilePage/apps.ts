@@ -3,7 +3,7 @@ import { Skillset } from '../promptfolio/components/Skillset';
 import { MobileAbout } from './apps/MobileAbout';
 import { MobileResume } from './apps/MobileResume';
 import { MobileEmail } from './apps/MobileEmail';
-import { MobileYouPoop } from './apps/MobileYouPoop';
+import { YouPoop } from '../youpoop/YouPoop';
 
 export type MobileApp = {
 	name: string;
@@ -57,7 +57,7 @@ export const apps: MobileApp[] = [
 		label: 'YouPoop',
 		icon: asset('youtube-icon.png'),
 		kind: 'content',
-		Component: MobileYouPoop,
+		Component: YouPoop,
 	},
 	{
 		name: 'github',
