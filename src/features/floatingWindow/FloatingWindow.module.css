@@ -13,6 +13,7 @@
 	display: flex;
 }
 .header {
+	position: relative;
 	height: 25pt;
 	background-color: #2d2d2d;
 	color: var(--base1);
@@ -26,4 +27,18 @@
 .close {
 	position: absolute;
 	right: 0.5rem;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.close:hover {
+	opacity: 0.85;
+}
+
+.close:active {
+	transform: translateY(-50%) scale(0.9);
 }

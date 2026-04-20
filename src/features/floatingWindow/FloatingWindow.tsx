@@ -49,9 +49,12 @@ export function FloatingWindow({
     >
       <div className={styles.header}>
         <span>{windowName}</span>
-        <span className={styles.close} onClick={() => onClose(windowName)}>
-          close
-        </span>
+        <img
+          className={styles.close}
+          src={`${process.env.PUBLIC_URL}/close-button.png`}
+          alt="Close"
+          onClick={() => onClose(windowName)}
+        />
       </div>
       <div className={styles.body}>{children}</div>
     </div>

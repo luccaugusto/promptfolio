@@ -104,3 +104,20 @@ input, input:focus-visible {
 .directory {
 	color: var(--cyan);
 }
+
+@media (max-width: 720px) {
+	.skillWrapper {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.35rem;
+	}
+	.skillWrapper > div:first-child {
+		width: 100% !important;
+	}
+	.skillBubbleWrapper {
+		justify-content: flex-start;
+	}
+	.skillBubble {
+		white-space: normal;
+	}
+}
