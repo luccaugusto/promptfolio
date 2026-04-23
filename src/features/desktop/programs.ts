@@ -2,6 +2,7 @@ import React from "react";
 import { Promptfolio } from "../promptfolio/Promptfolio";
 import { YouPoop } from "../youpoop/YouPoop";
 import { Resume } from "../resume/Resume";
+import { Gallery } from "../gallery/Gallery";
 
 export type Program = {
   name: string;
@@ -44,7 +45,7 @@ export const programs: Program[] = [
     window: {
       width: "360px",
       height: "640px",
-      draggable: false,
+      draggable: true,
       randomPosition: true,
     },
   },
@@ -52,8 +53,14 @@ export const programs: Program[] = [
     name: "gallery",
     label: "Gallery",
     icon: asset("gallery-icon.png"),
-    kind: "redirect",
-    url: "https://luccaaugusto.xyz",
+    kind: "window",
+    Component: Gallery,
+    window: {
+      width: "960px",
+      height: "720px",
+      draggable: true,
+      randomPosition: true,
+    },
   },
   {
     name: "github",

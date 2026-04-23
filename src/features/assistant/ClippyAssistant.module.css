@@ -107,4 +107,14 @@
 	width: 18rem;
 	height: auto;
 	pointer-events: auto;
+	transition: width 0.2s ease;
+}
+
+.minimized {
+	width: 5rem;
+	cursor: pointer;
+}
+
+.minimized:hover {
+	opacity: 0.85;
 }

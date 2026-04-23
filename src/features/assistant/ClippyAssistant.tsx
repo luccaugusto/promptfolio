@@ -9,7 +9,7 @@ type Hint = {
 const hints: Hint[] = [
   {
     title: "Hi there!",
-    body: "This portfolio looks like a desktop. Click icons or use the terminal to explore.",
+    body: "This portfolio looks like a desktop. Click icons or use the terminal to explore. You can also move windows around!",
   },
   {
     title: "Resume",
@@ -50,49 +50,52 @@ export const ClippyAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [index, setIndex] = useState(0);
 
-  if (!isOpen) return null;
-
   const hint = hints[index];
   const isFirst = index === 0;
   const isLast = index === hints.length - 1;
 
   return (
     <div className={styles.container}>
-      <div className={styles.bubble}>
-        <img
-          className={styles.close}
-          src={`${process.env.PUBLIC_URL}/close-button.png`}
-          alt="close"
-          onClick={() => setIsOpen(false)}
-        />
-        <div className={styles.title}>{hint.title}</div>
-        <div className={styles.body}>{hint.body}</div>
-        <div className={styles.nav}>
-          <button
-            className={styles.navBtn}
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
-            disabled={isFirst}
-            aria-label="previous hint"
-          >
-            ◀
-          </button>
-          <span className={styles.index}>
-            {index + 1} / {hints.length}
-          </span>
-          <button
-            className={styles.navBtn}
-            onClick={() => setIndex((i) => Math.min(hints.length - 1, i + 1))}
-            disabled={isLast}
-            aria-label="next hint"
-          >
-            ▶
-          </button>
+      {isOpen && (
+        <div className={styles.bubble}>
+          <img
+            className={styles.close}
+            src={`${process.env.PUBLIC_URL}/close-button.png`}
+            alt="close"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className={styles.title}>{hint.title}</div>
+          <div className={styles.body}>{hint.body}</div>
+          <div className={styles.nav}>
+            <button
+              className={styles.navBtn}
+              onClick={() => setIndex((i) => Math.max(0, i - 1))}
+              disabled={isFirst}
+              aria-label="previous hint"
+            >
+              ◀
+            </button>
+            <span className={styles.index}>
+              {index + 1} / {hints.length}
+            </span>
+            <button
+              className={styles.navBtn}
+              onClick={() => setIndex((i) => Math.min(hints.length - 1, i + 1))}
+              disabled={isLast}
+              aria-label="next hint"
+            >
+              ▶
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <img
-        className={styles.character}
+        className={`${styles.character} ${isOpen ? "" : styles.minimized}`}
         src={`${process.env.PUBLIC_URL}/clippeers.png`}
         alt="assistant"
+        onClick={() => {
+          if (!isOpen) setIsOpen(true);
+        }}
       />
     </div>
   );
