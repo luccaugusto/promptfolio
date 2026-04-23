@@ -1,6 +1,5 @@
-import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
-import { selectCurrentDir} from '../promptfolioSlice';
+import { useTerminal } from '../TerminalContext';
 import { Resume } from '../../resume/Resume';
 
 interface CatProps {
@@ -8,7 +7,7 @@ interface CatProps {
 }
 
 export function Cat(props: CatProps) {
-	const currentDir = useSelector(selectCurrentDir);
+	const { currentDir } = useTerminal();
 
 	const getFileFullPath = (file: string) => {
 		let path = currentDir[file];

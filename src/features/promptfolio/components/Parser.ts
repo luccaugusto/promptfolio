@@ -1,8 +1,6 @@
 import styles from '../Promptfolio.module.css';
 import { componentNames } from '../Promptfolio';
-import { useSelector } from 'react-redux';
-import { selectCurrentDir, popFullpath, pushFullpath, selectFullpath, selectPWD, updatePWD } from '../promptfolioSlice';
-import { useAppDispatch } from '../../../app/hooks';
+import { useTerminal } from '../TerminalContext';
 
 export const enum ProgramActions {
   OUTPUT_CLEAR = 'outputclear',
@@ -19,10 +17,7 @@ export interface programResult {
 }
 
 export function Parser() {
-  const PWD = useSelector(selectPWD);
-  const dispatch = useAppDispatch();
-  const fullPath = useSelector(selectFullpath);
-  const currentDir = useSelector(selectCurrentDir);
+  const { PWD, currentDir, pushFullpath, popFullpath } = useTerminal();
 
   const programList = new Map();
   programList.set('status', function Status(): programResult {
@@ -99,7 +94,6 @@ export function Parser() {
       This is my Promptfolio, a ReactJS application made to simulate linux terminal.<br/>
       I do love terminal applications and i try to do most of my work without GUI applications.<br/>
       I feel a lot more confortable not having to use the mouse. This project reflects this directly.<br/>
-      As i mentioned before, Promptfolio is developed in ReactJS, using Redux<br/>
       You can find the source code in my github page (just type cd github/promptfolio to get there)<br/>
       Fun fact, <a href="https://en.wikipedia.org/wiki/Linux_kernel_version_history#Releases_4.x.y" target="_blank" rel="noreferrer">linux 4.7.10 was actually named Psychotic Stoned Sheep</a>`,
         action: ProgramActions.RENDER,
@@ -138,8 +132,7 @@ export function Parser() {
     let url = '';
     if (args.slice(0,2) === '..') {
       if (PWD !== '~') {
-        dispatch(updatePWD(fullPath.slice(0, fullPath.length-1).join('/')));
-        dispatch(popFullpath());
+        popFullpath();
       }
       return {component, args: '', action, description};
     }
@@ -163,8 +156,7 @@ export function Parser() {
 
       //change directory
       else {
-        dispatch(updatePWD(`${PWD}/${dir}`));
-        dispatch(pushFullpath(dir));
+        pushFullpath(dir);
         currentDirectory = currentDirectory[dir];
       }
     });

@@ -1,6 +1,5 @@
-import { useSelector } from 'react-redux';
 import styles from '../Promptfolio.module.css';
-import { selectUserAtHost } from '../promptfolioSlice';
+import { useTerminal } from '../TerminalContext';
 
 interface TextRenderProps {
 	args: string,
@@ -10,7 +9,7 @@ interface TextRenderProps {
 
 export function TextRender(props: TextRenderProps) {
 	const {args, type} = props;
-	const userAtHost = useSelector(selectUserAtHost);
+	const { userAtHost } = useTerminal();
 
 	return (
 		<div>

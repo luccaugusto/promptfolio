@@ -1,7 +1,6 @@
 import { ChangeEventHandler, KeyboardEventHandler, useEffect }  from 'react';
-import { selectPS1 } from '../promptfolioSlice';
 import styles from '../Promptfolio.module.css';
-import { useSelector } from 'react-redux';
+import { useTerminal } from '../TerminalContext';
 
 interface inputProps {
 	className: string,
@@ -11,7 +10,7 @@ interface inputProps {
 }
 
 export function Input(props: inputProps) {
-	const PS1 = useSelector(selectPS1);
+	const { PS1 } = useTerminal();
 
 	useEffect(() => {
 		setTimeout(

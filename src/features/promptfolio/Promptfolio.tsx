@@ -1,18 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAppDispatch } from '../../app/hooks';
-import {
-	clearOutput,
-	clearCommand,
-	pushCommand,
-	pushOutput,
-	selectCommandHistory,
-	selectOutput,
-    selectcommandOutput,
-    selectCurrentDir,
-} from './promptfolioSlice';
 import styles from './Promptfolio.module.css';
-import { useSelector } from 'react-redux';
 import { Input } from './components/Input';
 import { Parser } from './components/Parser';
 import { ProgramActions } from './components/Parser';
@@ -20,6 +8,7 @@ import { Github } from './components/Github';
 import { Skillset } from './components/Skillset';
 import { Cat } from './components/Cat';
 import { TextRender } from './components/TextRender';
+import { TerminalProvider, useTerminal } from './TerminalContext';
 
 const availableComponents: { [key: string]: any } = {
 	Github: Github,
@@ -35,33 +24,38 @@ export const componentNames = {
 	SKILLSET: 'Skillset',
 }
 
-export function Promptfolio() {
-	const dispatch = useAppDispatch();
-	const outputHistory = useSelector(selectOutput);
-	const commandHistory = useSelector(selectCommandHistory);
-	const commandOutput = useSelector(selectcommandOutput);
-	const currentDir = useSelector(selectCurrentDir);
+function PromptfolioInner() {
+	const {
+		commandHistory,
+		commandOutput,
+		output: outputHistory,
+		currentDir,
+		pushCommand,
+		pushOutput,
+		clearOutput,
+		clearCommand,
+	} = useTerminal();
 	const {programList, parseCommand} = Parser();
 
 	const [commandLine, setCommandLine] = useState('');
 	const [currentCommandCount, setCurrentCommandCount] = useState(commandHistory.length);
 
 	const fireCommand = (command: string) => {
-		dispatch(pushCommand(command));
+		pushCommand(command);
 
 		const programResult = parseCommand(command);
 		if (programResult.action.indexOf(ProgramActions.OUTPUT_CLEAR) > -1) {
-			dispatch(clearOutput());
-			dispatch(clearCommand());
+			clearOutput();
+			clearCommand();
 		} else if (programResult.action.indexOf(ProgramActions.REDIRECT) > -1){
 			window.open(programResult.args);
-			dispatch(pushOutput({
+			pushOutput({
 				...programResult,
 				action: ProgramActions.RENDER,
 				args: `Opening ${programResult.args} in a new tab`
-			}));
+			});
 		} else {
-			dispatch(pushOutput(programResult));
+			pushOutput(programResult);
 		}
 	}
 
@@ -125,14 +119,14 @@ export function Promptfolio() {
 			}
 		}
 		if (possibleValuesCount > 1) {
-			dispatch(pushCommand(commandLine));
-			dispatch(pushOutput({
+			pushCommand(commandLine);
+			pushOutput({
 				args: possibleValues.reduce(
 					(suggestionString, pName) => suggestionString += `&nbsp;&nbsp;${pName}`
 				),
 				action: ProgramActions.RENDER,
 				component: componentNames.TEXT
-			}));
+			});
 		}
 	});
 
@@ -178,5 +172,13 @@ export function Promptfolio() {
 				onKeyDown={handleKeyPress}
 			/>
 		</div>
+	);
+}
+
+export function Promptfolio() {
+	return (
+		<TerminalProvider>
+			<PromptfolioInner />
+		</TerminalProvider>
 	);
 }
