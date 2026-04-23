@@ -1,0 +1,110 @@
+.container {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	pointer-events: none;
+}
+
+.bubble {
+	position: relative;
+	max-width: 260px;
+	background-color: var(--yellow);
+	color: var(--base03);
+	border: 2px solid var(--base01);
+	border-radius: 6px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+	padding: 0.75rem 1rem;
+	margin-bottom: 10px;
+	pointer-events: auto;
+}
+
+.bubble::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	right: 32px;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 10px solid var(--yellow);
+}
+
+.close {
+	position: absolute;
+	right: 0.4rem;
+	top: 0.4rem;
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+	user-select: none;
+}
+
+.close:hover {
+	opacity: 0.85;
+}
+
+.close:active {
+	transform: scale(0.9);
+}
+
+.title {
+	font-size: 0.857rem;
+	font-weight: bold;
+	margin-bottom: 0.35rem;
+	padding-right: 18px;
+}
+
+.body {
+	font-size: 0.8rem;
+	line-height: 1.35;
+	margin-bottom: 0.6rem;
+}
+
+.body code {
+	background-color: rgba(0, 43, 54, 0.2);
+	padding: 0 3px;
+	border-radius: 3px;
+}
+
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	font-size: 0.8rem;
+}
+
+.navBtn {
+	background: transparent;
+	border: none;
+	color: var(--base03);
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 2px 6px;
+	font-family: inherit;
+}
+
+.navBtn:hover:not(:disabled) {
+	opacity: 0.7;
+}
+
+.navBtn:disabled {
+	opacity: 0.3;
+	cursor: default;
+}
+
+.index {
+	font-size: 0.714rem;
+	opacity: 0.7;
+}
+
+.character {
+	width: 96px;
+	height: auto;
+	pointer-events: auto;
+}

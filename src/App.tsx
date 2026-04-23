@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { MobilePage } from './features/mobilePage/MobilePage';
 import { DesktopIcons } from './features/desktop/DesktopIcons';
 import { Program, programs } from './features/desktop/programs';
+import { ClippyAssistant } from './features/assistant/ClippyAssistant';
 
 type OpenWindow = {
 	program: Program;
@@ -75,6 +76,7 @@ function App(props: any) {
 	let component = (
 		<div>
 			<DesktopIcons programs={programs} onOpen={openProgram} />
+			<ClippyAssistant />
 			{openWindows.map((w, index) => {
 				const { Component } = w.program;
 				if (!Component) return null;
