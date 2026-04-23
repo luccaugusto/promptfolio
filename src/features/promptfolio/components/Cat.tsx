@@ -24,6 +24,10 @@ export function Cat(props: CatProps) {
 		return <span>File {fileName} not found</span>;
 	}
 
+	if (typeof filePath === 'object') {
+		return <span>cat: {fileName}: Is a directory, use cd or ls instead</span>;
+	}
+
 	if (fileName === 'resume.pdf') {
 		return (
 			<div className={styles.catResume}>

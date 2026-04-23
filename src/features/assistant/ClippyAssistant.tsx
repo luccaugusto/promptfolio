@@ -91,7 +91,7 @@ export const ClippyAssistant: React.FC = () => {
       </div>
       <img
         className={styles.character}
-        src={`${process.env.PUBLIC_URL}/clippy.png`}
+        src={`${process.env.PUBLIC_URL}/clippeers.png`}
         alt="assistant"
       />
     </div>

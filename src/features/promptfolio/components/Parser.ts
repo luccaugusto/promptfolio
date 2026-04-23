@@ -28,16 +28,29 @@ export function Parser() {
       description: "What i'm currently working on",
     };
   });
-  programList.set('ls', function Ls(): programResult {
+  programList.set('ls', function Ls(args: string): programResult {
+    const description = 'List files and directories';
+    const action = ProgramActions.RENDER;
+    const component = componentNames.TEXT;
+
+    const target = args && typeof currentDir[args] === 'object' && !currentDir[args].url
+      ? currentDir[args]
+      : null;
+
+    if (args && !target) {
+      return { component, action, description, args: `<span class="${styles.indented}">${args}</span>` };
+    }
+
+    const dir = target || currentDir;
     return {
-      args: Object.keys(currentDir).map((k) =>{
-        const classes = typeof(currentDir[k]) === 'object' ?
+      component,
+      action,
+      description,
+      args: Object.keys(dir).map((k) => {
+        const classes = typeof(dir[k]) === 'object' ?
           `${styles.directory} ${styles.indented}` : styles.indented;
         return `<span class="${classes}">${k}</span>`
       }).join(' '),
-      action: ProgramActions.RENDER,
-      component: componentNames.TEXT,
-      description: "List files and directories"
     };
   });
   programList.set('help', function Help(): programResult {
