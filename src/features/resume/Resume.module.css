@@ -2,25 +2,251 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	background-color: var(--base03);
+	background-color: rgb(40, 40, 40);
 	overflow: auto;
+	font-family: sans-serif;
 }
 
-.wrapper iframe {
-	display: block;
+.wrapper a:not(.printButton) {
+	text-decoration: none;
+	color: #2a2a2a;
+	border-bottom: 1px dotted #6a6a6a;
+	transition: border-bottom-color 0.2s ease, color 0.2s ease;
+}
+
+.wrapper a:not(.printButton):hover {
+	color: #1a1a1a;
+	border-bottom-color: #4a4a4a;
+}
+
+.pageContainer {
+	width: 210mm;
+	height: 297mm;
+	padding: 5mm 10mm;
+	margin: 10mm auto;
+	border: 1px #D3D3D3 solid;
+	background: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+	overflow: hidden;
+	position: relative;
+	page-break-after: always;
+	page-break-inside: avoid;
+}
+
+@media print {
+	.wrapper {
+		background: white;
+	}
+	.pageContainer {
+		margin: 0;
+		border: none;
+		box-shadow: none;
+		page-break-after: always;
+	}
+	.pageContainer:last-child {
+		page-break-after: auto;
+	}
+	.proficiencyCircles .circle {
+		display: inline-block !important;
+		width: 13px !important;
+		height: 13px !important;
+		min-width: 13px !important;
+		min-height: 13px !important;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+	}
+	.proficiencyCircles[data-level="1"] .circle:nth-child(-n+1),
+	.proficiencyCircles[data-level="2"] .circle:nth-child(-n+2),
+	.proficiencyCircles[data-level="3"] .circle:nth-child(-n+3),
+	.proficiencyCircles[data-level="4"] .circle:nth-child(-n+4),
+	.proficiencyCircles[data-level="5"] .circle:nth-child(-n+5) {
+		background-color: #4a4a4a !important;
+		border-color: #4a4a4a !important;
+		-webkit-print-color-adjust: exact !important;
+		print-color-adjust: exact !important;
+		color-adjust: exact !important;
+	}
+}
+
+.resumeHeader {
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.resumeHeader h1 {
+	margin-bottom: 12px;
+	font-weight: 600;
+}
+
+.contactInfo {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 5px 15px;
+	font-size: 12px;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+}
+
+.item i {
+	margin-right: 5px;
+}
+
+.icon {
+	color: #3b454a;
+}
+
+.cvBody {
+	display: flex;
 	width: 100%;
-	height: 100%;
-	border: none;
+}
+
+.content {
+	flex: 5.5;
+	padding-right: 25pt;
+}
+
+.sidebar {
+	flex: 3.5;
+}
+
+.sectionHeader {
+	font-size: 28px;
+	font-weight: 600;
+	color: #5b5b5b;
+	border-bottom: 3px solid #5b5b5b;
+	padding-bottom: 4px;
+	margin-bottom: 12px;
+	line-height: 1;
+}
+
+.description {
+	text-align: justify;
+	font-size: 15px;
+}
+
+.subtitle {
+	font-weight: 550;
+	color: #4a4a4a;
+	font-size: 14px;
+}
+
+.pillList {
+	font-weight: 500;
+	color: #4a4a4a;
+	list-style: none;
+	padding: 0;
+	margin: 8px 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.pillList li {
+	border-radius: 5px;
+	padding: 3px 6px;
+	font-size: 12px;
+	border: 1px solid #b8b8b8;
+}
+
+.skillList {
+	margin-top: 8px;
+}
+
+.skillRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 14px;
+}
+
+.skillName {
+	color: #4a4a4a;
+	font-weight: 600;
+}
+
+.proficiencyCircles {
+	display: flex;
+	gap: 4px;
+}
+
+.proficiencyCircles .circle {
+	width: 13px;
+	height: 13px;
+	min-width: 13px;
+	min-height: 13px;
+	border-radius: 50%;
+	background-color: #d0d0d0;
+	display: inline-block;
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+	border: 1px solid #d0d0d0;
+	box-sizing: border-box;
+}
+
+.proficiencyCircles[data-level="1"] .circle:nth-child(-n+1),
+.proficiencyCircles[data-level="2"] .circle:nth-child(-n+2),
+.proficiencyCircles[data-level="3"] .circle:nth-child(-n+3),
+.proficiencyCircles[data-level="4"] .circle:nth-child(-n+4),
+.proficiencyCircles[data-level="5"] .circle:nth-child(-n+5) {
+	background-color: #4a4a4a;
+	border-color: #4a4a4a;
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+}
+
+.position {
+	font-size: 18px;
+	color: #404040;
+	font-weight: 600;
+}
+
+.location {
+	font-size: 16px;
+	color: #5a5a5a;
+}
+
+.date {
+	color: #6a6a6a;
+	font-size: 16px;
+}
+
+.experienceBlock {
+	margin-bottom: 16px;
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px dashed #d0d0d0;
+}
+
+.timeLocation {
+	display: flex;
+	gap: 15px;
+	margin-top: 4px;
+	font-size: 14px;
+	justify-content: space-between;
+}
+
+.educationBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	margin-bottom: 12px;
 }
 
 .printButton {
 	position: absolute;
 	top: 0.75rem;
-	left: 0.75rem;
+	right: 0.75rem;
 	z-index: 5;
 	padding: 0.5rem 0.9rem;
 	background-color: var(--base02);
-	color: var(--base1);
+	color: #ffffff;
 	border: 1px solid var(--blue);
 	border-radius: 6px;
 	font-family: inherit;

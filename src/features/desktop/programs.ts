@@ -10,6 +10,12 @@ export type Program = {
   kind: "window" | "redirect";
   Component?: React.FC;
   url?: string;
+  window?: {
+    width?: string;
+    height?: string;
+    draggable?: boolean;
+    randomPosition?: boolean;
+  };
 };
 
 const asset = (file: string) => `${process.env.PUBLIC_URL}/${file}`;
@@ -35,6 +41,12 @@ export const programs: Program[] = [
     icon: asset("youtube-icon.png"),
     kind: "window",
     Component: YouPoop,
+    window: {
+      width: "360px",
+      height: "640px",
+      draggable: false,
+      randomPosition: true,
+    },
   },
   {
     name: "gallery",

@@ -17,10 +17,30 @@ const centeredPosition = (): { top: number; left: number } => ({
 	left: window.innerWidth * 0.1,
 });
 
+const parsePx = (value: string | undefined, fallback: number): number => {
+	if (!value) return fallback;
+	const match = value.match(/^(\d+(?:\.\d+)?)px$/);
+	return match ? parseFloat(match[1]) : fallback;
+};
+
+const randomPosition = (program: Program): { top: number; left: number } => {
+	const w = parsePx(program.window?.width, window.innerWidth * 0.8);
+	const h = parsePx(program.window?.height, WINDOW_HEIGHT_PX);
+	const maxTop = Math.max(20, window.innerHeight - h - 20);
+	const maxLeft = Math.max(0, window.innerWidth - w);
+	return {
+		top: 20 + Math.random() * (maxTop - 20),
+		left: Math.random() * maxLeft,
+	};
+};
+
+const positionFor = (program: Program): { top: number; left: number } =>
+	program.window?.randomPosition ? randomPosition(program) : centeredPosition();
+
 const initialOpenWindows = (): OpenWindow[] => {
 	const promptfolio = programs.find((p) => p.name === 'promptfolio');
 	if (!promptfolio) return [];
-	return [{ program: promptfolio, ...centeredPosition() }];
+	return [{ program: promptfolio, ...positionFor(promptfolio) }];
 };
 
 function App(props: any) {
@@ -38,7 +58,7 @@ function App(props: any) {
 			setActive(existingIndex);
 			return;
 		}
-		const next = [...openWindows, { program, ...centeredPosition() }];
+		const next = [...openWindows, { program, ...positionFor(program) }];
 		setOpenWindows(next);
 		setActive(next.length - 1);
 	};
@@ -68,6 +88,9 @@ function App(props: any) {
 						onTop={index === active}
 						onClose={closeProgram}
 						onFocus={() => setActive(index)}
+						draggable={w.program.window?.draggable ?? true}
+						width={w.program.window?.width}
+						height={w.program.window?.height}
 					>
 						<Component />
 					</FloatingWindow>
